@@ -30,7 +30,7 @@ from cash_sizer import CashSizer
 #from IPython.display import FileLink, FileLinks
 
 #from pivottablejs import pivot_ui
-from IPython.display import HTML
+#from IPython.display import HTML
 #from ipysheet import from_dataframe
 import argparse
 
