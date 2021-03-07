@@ -22,8 +22,8 @@ import os
 import pandas as pd
 from datetime import datetime,timedelta,date
 import backtrader as bt
-from backtrader.strategies import SuperTrendStrategy
-from backtrader.sizers import CashSizer
+from supertrend import SuperTrendStrategy
+from cashsizer import CashSizer
 #import matplotlib.pyplot as plt
 #from google.colab import files
 #from IPython.display import Image
