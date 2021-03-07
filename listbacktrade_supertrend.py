@@ -145,15 +145,15 @@ def run(symbolsfile):
     
     rescollect=[]
     #for symfile,index_col in collect.items():
-    symfile,index_col=collect[symbolsfile]
-    symdf = pd.read_csv(symfile,index_col=index_col)
+    index_col=collect[symbolsfile]
+    symdf = pd.read_csv(symbolsfile,index_col=index_col)
     symdf.symbol=symdf.symbol.apply(lambda x: x.lstrip().rstrip())
     symbols = symdf.symbol.iloc[:]
     symbols.iloc[0]
     db_df = create_list(symdf)
     df_sort=db_df.sort_values(by='ret',ascending=False)  
     df_sort.reset_index(drop=True,inplace=True) 
-    symfile_list = symfile[:-4]+'list.csv'
+    symfile_list = symbolsfile[:-4]+'list.csv'
     rescollect.append(symfile_list)
     filename = os.path.join(DIR,symfile_list)
     df_sort.to_csv(filename)
