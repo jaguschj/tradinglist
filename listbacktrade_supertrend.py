@@ -23,7 +23,7 @@ import pandas as pd
 from datetime import datetime,timedelta,date
 import backtrader as bt
 from supertrend import SuperTrendStrategy
-from cashsizer import CashSizer
+from cash_sizer import CashSizer
 #import matplotlib.pyplot as plt
 #from google.colab import files
 #from IPython.display import Image
