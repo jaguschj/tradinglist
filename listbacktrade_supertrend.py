@@ -146,7 +146,7 @@ def run(symbolsfile):
     
     rescollect=[]
     #for symfile,index_col in collect.items():
-    index_col=collect[symbolsfile]
+    index_col=collect[symbolsfilebase]
     symdf = pd.read_csv(symbolsfile,index_col=index_col)
     symdf.symbol=symdf.symbol.apply(lambda x: x.lstrip().rstrip())
     symbols = symdf.symbol.iloc[:]
