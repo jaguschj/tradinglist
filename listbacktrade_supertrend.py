@@ -44,7 +44,10 @@ pd.set_option('display.max_rows', 100)
 #from google.colab import drive
 #drive.mount('/content/drive')
 
-DIR='plots'
+rundir = os.getcwd()
+DIR=os.path.join(rundir,'plots')
+if not os.path.exists(DIR):
+    os.mkdir(DIR) 
 
 #from bt.strategies import SuperTrendStrategy
 #from bt.sizers import CashSizer
