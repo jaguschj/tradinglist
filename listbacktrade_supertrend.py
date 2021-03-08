@@ -138,11 +138,11 @@ def create_list(symdf):
 
 def run(symbolsfile):    
     
-    symbolsfile=os.path.basename(symbolsfile)
+    symbolsfilebase=os.path.basename(symbolsfile)
     #df_sort.style.format({'url': make_clickable})
     collect={'Liste_jj.csv':None,'nasdaq.csv':0,'nyse.csv':0,'DAX.csv':0}
     #collect={'nasdaq.csv':0,'nyse.csv':0}
-    assert symbolsfile in collect.keys()
+    assert symbolsfilebase in collect.keys()
     
     rescollect=[]
     #for symfile,index_col in collect.items():
