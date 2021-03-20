@@ -87,8 +87,8 @@ def run_st(symb='DTE.DE',period=7,multiplier=3.5,backyears=2):
   back = cerebro.run()
   #cerebro.plot()
   #plt.show()
-  #chart_file = os.path.join(DIR,'result_%s.png'%symb)
-  chart_file = 'result_%s.png'%symb
+  chart_file = os.path.join(DIR,'result_%s.png'%symb)
+  #chart_file = 'result_%s.png'%symb
   cerebro.plot()[0][0].savefig(chart_file, dpi=300)
   #Image(open(chart_file, 'rb').read())
   #cerebro.plot(width=42,height=30)[0]
