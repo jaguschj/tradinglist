@@ -87,7 +87,8 @@ def run_st(symb='DTE.DE',period=7,multiplier=3.5,backyears=2):
   back = cerebro.run()
   #cerebro.plot()
   #plt.show()
-  chart_file = os.path.join(DIR,'result_%s.png'%symb)
+  #chart_file = os.path.join(DIR,'result_%s.png'%symb)
+  chart_file = 'result_%s.png'%symb
   cerebro.plot()[0][0].savefig(chart_file, dpi=300)
   #Image(open(chart_file, 'rb').read())
   #cerebro.plot(width=42,height=30)[0]
@@ -104,17 +105,21 @@ def run_st(symb='DTE.DE',period=7,multiplier=3.5,backyears=2):
   spt_ind,buysig,sellsig=back[0].getindicators_lines()
   price = data0.lines[7].array # adj close?
   close,spt,buy,sell=(price[-1],spt_ind.array[-1],buysig.array[-1], sellsig.array[-1])
-
+  lastdate=data0.datetime.date()
+  print(lastdate)
+  
   dist_tosig = (close-spt)/spt
   if (close<spt): # down trend
     dist_tosig=-dist_tosig
-  return (rt,dd,sr,total,buy,sell,spt,dist_tosig,close,chart_file)
+  return (rt,dd,sr,total,buy,sell,spt,dist_tosig,close,chart_file,lastdate)
 
 #################################### basic  #######
 def make_clickable(val):
     # target _blank to open new window
-    link = val.split('result_')[-1]
-    return '<a target="_blank" href="{}">{}</a>'.format(val, link)
+    #filename = val.split('result_')[-1]
+    
+    #return 'html.A(html.P({},href={},target="_blank"'.format(val, val)
+    return val
 
 
 def create_list(symdf):
@@ -127,10 +132,14 @@ def create_list(symdf):
     symb=row.symbol
     name=row['name']
     print(name)
-    rt,dd,sr,value,buy,sell,spt,dist_tosig,close,chart = run_st(symb=symb, period=period, multiplier=multiplier)
-    dbset=dict(symbol=symb,name=name,multiplier=multiplier,period=period,ret=rt,drawd=dd,shaper=sr,value=value,
-               buy=buy,sell=sell,indicator=spt,dist2ind=dist_tosig,close=close,url=make_clickable(chart))
-    db_bestfit.append(dbset)
+    try:
+        rt,dd,sr,value,buy,sell,spt,dist_tosig,close,chart,lastdate = run_st(symb=symb, period=period, multiplier=multiplier)
+        dbset=dict(symbol=symb,name=name,multiplier=multiplier,period=period,ret=rt,drawd=dd,shaper=sr,value=value,
+               buy=buy,sell=sell,indicator=spt,dist2ind=dist_tosig,close=close,cdate=lastdate,url=make_clickable(chart))
+        db_bestfit.append(dbset)
+    except:
+        print('Error in backtrading on %s'%symb)
+        
   db_df = pd.DataFrame(db_bestfit)
   return db_df
 
