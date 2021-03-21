@@ -51,6 +51,7 @@ rundir,sourcefile=os.path.split(__file__)
 DIR=os.path.join(rundir,'plots')
 if not os.path.exists(DIR):
     os.mkdir(DIR) 
+print('Saving Data to %s'%DIR)    
 
 #from bt.strategies import SuperTrendStrategy
 #from bt.sizers import CashSizer
