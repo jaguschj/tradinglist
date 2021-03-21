@@ -164,7 +164,7 @@ def run(symbolsfile):
     symbols = symdf.symbol.iloc[:]
     symbols.iloc[0]
     db_df = create_list(symdf)
-    df_sort=db_df.sort_values(by='ret',ascending=False)  
+    df_sort=db_df.sort_values(by='shaper',ascending=False)  
     df_sort.reset_index(drop=True,inplace=True) 
     symfile_list = symbolsfile[:-4]+'list.csv'
     rescollect.append(symfile_list)
