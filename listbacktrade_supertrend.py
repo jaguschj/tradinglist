@@ -223,8 +223,12 @@ def opt_symbol(symbol='DPW.DE',
     # Create a cerebro entity
     cerebro = bt.Cerebro()
     # set ranges
-    period = range(3,20,2)
-    multiplier = np.linspace(1.5,5.5,num=11)
+    if 0: # for testing
+        period = [5,7]
+        multiplier = [2.5,3.5]
+    else:
+        period = range(3,20,2)
+        multiplier = np.linspace(1.5,5.5,num=11)
     # Add a strategy
     strats = cerebro.optstrategy(
             SuperTrendStrategy,
@@ -287,15 +291,16 @@ def update_parameter_table(listname):
     try:
         df = pd.read_csv(listname,index_col=0)
         df['symbol'] = df[['symbol']].apply(lambda x: x.str.strip())#,axis=1)
+        #pcol = df.columns.get_loc("period")
+        #mcol = df.columns.get_loc("multiplier")
         for ix,row in df.iloc[:].iterrows():
             optset = opt_parameters(row.symbol)
-            df[['period','multiplier']].iloc[ix]=optset[['period','multiplier']].iloc[0]
-            #per = optset[['period','multiplier']].values
-            #df['period'].loc[ix]=per[0]
-            #df['multiplier'].loc[ix]=per[1]
+            df.loc[ix,["period","multiplier"]]=optset[['period','multiplier']].values
         df.to_csv(listname,index=True)
     except:
         print('Error updating parameters of list %s '%listname)
+        print('Symbol:')
+        print(row)
         return 1
     print('Updated Parameters of List %s'%listname)
     return 0

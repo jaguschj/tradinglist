@@ -1,41 +1,32 @@
 ,name,symbol,period,multiplier
-0,DAX,^GDAXI,12,3
-1,Adidas,ADS.DE,12,3
-2,Allianz,ALV.DE,12,3
-3,BASF,BAS.DE,12,3
-4,Bayer,BAYN.DE,12,3
-5,Beiersdorf,BEI.DE,12,3
-6,BMW,BMW.DE,12,3
-7,Commerzbank,CBK.DE,12,3
+0,DAX, ^GDAXI,12,3
+1,Adidas, ADS.DE ,12,3
+2,Allianz,ALV.DE ,12,3
+3,BASF, BAS.DE ,12,3
+4,Bayer, BAYN.DE ,12,3
+5,BMW, BMW.DE ,12,3
+6,Continental, CON.DE ,12,3
+7,Covestro, 1COV.DE,12,3
 8,Daimler,DAI.DE,12,3
-9,Deutsche Boerse,DB1.DE,12,3
-10,Deutsche Bank,DBK.DE,12,3
-11,Deutsche Post,DPW.DE,12,3
-12,Deutsche Telekom,DTE.DE,12,3
-13,EON,EOAN.DE,12,3
-14,FRESENIUS MED CARE,FME.DE,12,3
-15,HENKEL VZ,HEN3.DE,12,3
-16,HeidelbergCement,HEI.DE,12,3
-17,INFINEON TECHNO,IFX.DE,12,3
-18,DT.LUFTHANSA,LHA.DE,12,3
-19,LINDE,LIN.DE,12,3
-20,#MAN,MAN.DE,12,3
-21,Metro,B4B.DE,12,3
-22,MERCK,MRK.DE,12,3
-23,MUENCH RUECKVERS,MUV2.DE,12,3
-24,RWE,RWE.DE,12,3
-25,SAP,SAP.DE,12,3
-26,K u S AG,SDF.DE,12,3
-27,Siemens,SIE.DE,12,3
-28,Salzgitter,SZG.DE,12,3
-29,THYSSENKRUPP,TKA.DE,12,3
-30,VOLKSWAGEN Vz,VOW3.DE,12,3
-31,VOLKSWAGEN AG,VOW.DE,12,3
-32,GEA,G1A.DE,12,3
-33,Royal Dutch,R6C.DE,12,3
-34,Continental,CON.DE,12,3
-35,BHP Billiton,BIL.DE,12,3
-36,Vonovia,VNA.DE,12,3
-37,Total SE,Totb.de,12,3
-38,Hann. Rueck,hnr1.de,12,3
-39,Ceconomy AG,CEC.DE,12,3
+9,Delivery Hero,	DHER.DE,12,3
+10,Deutsche Bank,	DBK.DE ,12,3
+11,Deutsche B�rse,DB1.DE,12,3
+12,Deutsche Post, DPW.DE ,12,3
+13,Deutsche Telekom,DTE.DE ,12,3
+14,Deutsche Wohnen, DWNI.DE,12,3
+15,E.ON, 		EOAN.DE,12,3
+16,Fresenius, FRE.DE,12,3
+17,Fresenius Medical Care,FME.DE,12,3
+18,HeidelbergCement, HEI.DE,12,3
+19,Henkel, HEN3.DE,12,3
+20,Infineon,IFX.DE,12,3
+21,Linde, LIN.DE,12,3
+22,Merck, MRK.DE,12,3
+23,MTU Aero Engines,MTX.DE ,12,3
+24,M�nchener R�ck, MUV2.DE,12,3
+25,RWE, RWE.DE,12,3
+26,SAP, SAP.DE,12,3
+27,Siemens, SIE.DE,12,3
+28,Siemens Energy, ENR.DE,12,3
+29,Volkswagen, VOW3.DE,12,3
+30,Vonovia, VNA.DE,12,3
