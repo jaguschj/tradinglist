@@ -1,8 +1,9 @@
 ,name,symbol,period,multiplier
+5,Beiersdorf, BEI.DE,12,3
+7,Commerzbank, CBK.DE,12,3
 18,DT.LUFTHANSA,LHA.DE,12,3
 20,#MAN,MAN.DE,12,3
 21,Metro,B4B.DE,12,3
-22,MERCK,MRK.DE,12,3
 26,K u S AG,SDF.DE,12,3
 28,Salzgitter,SZG.DE,12,3
 29,THYSSENKRUPP,TKA.DE,12,3
@@ -10,7 +11,6 @@
 32,GEA,G1A.DE,12,3
 33,Royal Dutch,R6C.DE,12,3
 35,BHP Billiton,BIL.DE,12,3
-36,Vonovia,VNA.DE,12,3
 37,Total SE,Totb.de,12,3
 38,Hann. Rueck,hnr1.de,12,3
 39,Ceconomy AG,CEC.DE,12,3
