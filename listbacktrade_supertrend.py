@@ -335,10 +335,10 @@ if __name__=='__main__':
     #list2HTML(filename)
     if args.parameterupdate:
         print('update started')
-        #optdf = update_parameter_table(args.listname)
+        optdf = update_parameter_table(args.listname)
     
     print('List %s'%args.listname)
-    #run(args.listname) 
+    run(args.listname) 
      
     
     
