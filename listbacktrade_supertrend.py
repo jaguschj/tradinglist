@@ -133,9 +133,10 @@ def create_list(symdf):
   period = 12
   symdf['multiplier'].fillna(3)
   symdf['period'].fillna(12)
+  symdf['period']=symdf['period'].values.astype(int)
 
   for index,row in symdf.iloc[:].iterrows():
-    print(row)
+    #print(row)
     symb=row.symbol
     name=row['name']
     multiplier = row.multiplier
@@ -223,7 +224,7 @@ def opt_symbol(symbol='DPW.DE',
     # Create a cerebro entity
     cerebro = bt.Cerebro()
     # set ranges
-    if 0: # for testing
+    if 1: # for testing
         period = [5,7]
         multiplier = [2.5,3.5]
     else:
@@ -293,9 +294,10 @@ def update_parameter_table(listname):
         df['symbol'] = df[['symbol']].apply(lambda x: x.str.strip())#,axis=1)
         #pcol = df.columns.get_loc("period")
         #mcol = df.columns.get_loc("multiplier")
-        for ix,row in df.iloc[:].iterrows():
+        for ix,row in df.iloc[:3].iterrows():
             optset = opt_parameters(row.symbol)
             df.loc[ix,["period","multiplier"]]=optset[['period','multiplier']].values
+        df['period']=df['period'].values.astype(int)
         df.to_csv(listname,index=True)
     except:
         print('Error updating parameters of list %s '%listname)
