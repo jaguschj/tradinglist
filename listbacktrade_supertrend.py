@@ -224,7 +224,7 @@ def opt_symbol(symbol='DPW.DE',
     # Create a cerebro entity
     cerebro = bt.Cerebro()
     # set ranges
-    if 1: # for testing
+    if 0: # for testing
         period = [5,7]
         multiplier = [2.5,3.5]
     else:
@@ -294,7 +294,7 @@ def update_parameter_table(listname):
         df['symbol'] = df[['symbol']].apply(lambda x: x.str.strip())#,axis=1)
         #pcol = df.columns.get_loc("period")
         #mcol = df.columns.get_loc("multiplier")
-        for ix,row in df.iloc[:3].iterrows():
+        for ix,row in df.iloc[:].iterrows():
             optset = opt_parameters(row.symbol)
             df.loc[ix,["period","multiplier"]]=optset[['period','multiplier']].values
         df['period']=df['period'].values.astype(int)
