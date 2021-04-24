@@ -223,8 +223,8 @@ def opt_symbol(symbol='DPW.DE',
     # Create a cerebro entity
     cerebro = bt.Cerebro()
     # set ranges
-    period = range(3,15)
-    multiplier = np.linspace(1.6,3.6,num=11)
+    period = range(3,20,2)
+    multiplier = np.linspace(1.5,5.5,num=11)
     # Add a strategy
     strats = cerebro.optstrategy(
             SuperTrendStrategy,
@@ -300,7 +300,18 @@ def update_parameter_table(listname):
     print('Updated Parameters of List %s'%listname)
     return 0
 
+
+
 if __name__=='__main__':
+    def str2bool(v):
+        if isinstance(v, bool):
+           return v
+        if v.lower() in ('yes', 'true', 't', 'y', '1'):
+            return True
+        elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+            return False
+        else:
+            raise argparse.ArgumentTypeError('Boolean value expected.')
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description='run through lists',
@@ -308,7 +319,13 @@ if __name__=='__main__':
 
     parser.add_argument('--listname', default='DAX.csv', type=str,
                         help='List out of ')
-    parser.add_argument('--parameterupdate', default=False, type=bool,
+    parser.add_argument('--parameterupdate', 
+                        #dest='parameterupdate',
+                        nargs='?',
+                        const=True,
+                        type=str2bool,
+                        default=False,
+                        #action='store_true',
                         help='create new parameters for indicator')
 
     args = parser.parse_args()
@@ -317,9 +334,11 @@ if __name__=='__main__':
     #filename='plots\Liste_jjlist.csv'
     #list2HTML(filename)
     if args.parameterupdate:
-        optdf = update_parameter_table(args.listname)
+        print('update started')
+        #optdf = update_parameter_table(args.listname)
     
-    run(args.listname) 
+    print('List %s'%args.listname)
+    #run(args.listname) 
      
     
     
