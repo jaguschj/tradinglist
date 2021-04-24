@@ -18,7 +18,7 @@ Original file is located at
 import os
 #import plotly.express as px
 
-#import numpy as np
+import numpy as np
 import pandas as pd
 from datetime import datetime,timedelta,date
 import backtrader as bt
@@ -128,13 +128,18 @@ def make_clickable(val):
 
 def create_list(symdf):
   db_bestfit=[]
+  
   multiplier=3
   period = 12
+  symdf['multiplier'].fillna(3)
+  symdf['period'].fillna(12)
 
   for index,row in symdf.iloc[:].iterrows():
     print(row)
     symb=row.symbol
     name=row['name']
+    multiplier = row.multiplier
+    period = row.period
     print(name)
     try:
         rt,dd,sr,value,buy,sell,spt,dist_tosig,close,chart,lastdate = run_st(symb=symb, period=period, multiplier=multiplier)
@@ -156,7 +161,9 @@ def run(symbolsfile):
     
     symbolsfilebase=os.path.basename(symbolsfile)
     #df_sort.style.format({'url': make_clickable})
-    collect={'Liste_jj.csv':None,'nasdaq.csv':0,'nyse.csv':0,'Dax.csv':0}
+    collect={'Liste_jj.csv':0,
+             'extra.csv':0,
+             'nasdaq.csv':0,'nyse.csv':0,'Dax.csv':0}
     #collect={'nasdaq.csv':0,'nyse.csv':0}
     assert symbolsfilebase in collect.keys()
     
@@ -167,6 +174,7 @@ def run(symbolsfile):
     symdf.symbol=symdf.symbol.apply(lambda x: x.lstrip().rstrip())
     symbols = symdf.symbol.iloc[:]
     symbols.iloc[0]
+    # do it
     db_df = create_list(symdf)
     df_sort=db_df.sort_values(by='shaper',ascending=False)  
     df_sort.reset_index(drop=True,inplace=True) 
@@ -208,6 +216,90 @@ def list2HTML(filename):
       df_sort.to_html('abc.html',formatters=[highlight]*14)
       return 
 
+    
+def opt_symbol(symbol='DPW.DE',
+               fromdate=datetime.today()-timedelta(days=500),
+               todate=datetime.today()):
+    # Create a cerebro entity
+    cerebro = bt.Cerebro()
+    # set ranges
+    period = range(3,15)
+    multiplier = np.linspace(1.6,3.6,num=11)
+    # Add a strategy
+    strats = cerebro.optstrategy(
+            SuperTrendStrategy,
+            period = period, 
+            multiplier = multiplier) 
+    data0 = bt.feeds.YahooFinanceData(dataname=symbol, fromdate=fromdate,
+                                  todate=todate )  
+    
+
+    # Add the Data Feed to Cerebro
+    cerebro.adddata(data0)
+
+    # Set our desired cash start
+    cerebro.broker.setcash(100000.0)
+
+    # Add a FixedSize sizer according to the stake
+    #cerebro.addsizer(bt.sizers.FixedSize, stake=10)
+    #cerebro.addsizer(bt.sizers.FixedSize, stake=200)
+    #cerebro.addsizer(bt.sizers.FixedReverser, stake=200)
+    cerebro.addsizer(CashSizer,cash_invest=50000)
+    #cerebro.addsizer(bt.sizers.PercentSizerInt, percents=90)
+    #cerebro.addsizer(bt.sizers.PercentSizer, percents = 90)
+
+    # Set the commission
+    cerebro.broker.setcommission(commission=0.005)
+
+    # analysers
+    cerebro.addanalyzer(bt.analyzers.SharpeRatio, _name = "sharpe")
+    cerebro.addanalyzer(bt.analyzers.DrawDown, _name = "drawdown")
+    cerebro.addanalyzer(bt.analyzers.Returns, _name = "returns")
+    # Run over everything
+    #cerebro.run(maxcpus=2)
+    #cerebro.plot()
+    back = cerebro.run(maxcpus=1)
+    
+    
+    par_list = [[x[0].params.period, 
+                 x[0].params.multiplier,
+                 x[0].analyzers.returns.get_analysis()['rnorm100'], 
+                 x[0].analyzers.drawdown.get_analysis()['max']['drawdown'],
+                 x[0].analyzers.sharpe.get_analysis()['sharperatio']
+                ] for x in back]
+    
+    par_df = pd.DataFrame(par_list, columns = ['period', 'multiplier', 'return', 'dd', 'sharpe'])
+    #print(par_df)
+    optset=par_df.iloc[par_df['return'].argmax()]
+    print('best set')
+    print(optset)
+    return par_df
+
+def opt_parameters(symbol):
+    # select criterion on optimum: return, sharpe, dd
+    optdf = opt_symbol(symbol)
+    optset=optdf.iloc[optdf['return'].argmax()]
+    return optset
+    
+        
+
+def update_parameter_table(listname):
+    try:
+        df = pd.read_csv(listname,index_col=0)
+        df['symbol'] = df[['symbol']].apply(lambda x: x.str.strip())#,axis=1)
+        for ix,row in df.iloc[:].iterrows():
+            optset = opt_parameters(row.symbol)
+            df[['period','multiplier']].iloc[ix]=optset[['period','multiplier']].iloc[0]
+            #per = optset[['period','multiplier']].values
+            #df['period'].loc[ix]=per[0]
+            #df['multiplier'].loc[ix]=per[1]
+        df.to_csv(listname,index=True)
+    except:
+        print('Error updating parameters of list %s '%listname)
+        return 1
+    print('Updated Parameters of List %s'%listname)
+    return 0
+
 if __name__=='__main__':
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -216,12 +308,19 @@ if __name__=='__main__':
 
     parser.add_argument('--listname', default='DAX.csv', type=str,
                         help='List out of ')
+    parser.add_argument('--parameterupdate', default=False, type=bool,
+                        help='create new parameters for indicator')
 
     args = parser.parse_args()
 
-    run(args.listname) 
+    
     #filename='plots\Liste_jjlist.csv'
     #list2HTML(filename)
+    if args.parameterupdate:
+        optdf = update_parameter_table(args.listname)
+    
+    run(args.listname) 
+     
     
     
         
