@@ -249,7 +249,7 @@ def opt_symbol(symbol='DPW.DE',
     #cerebro.addsizer(bt.sizers.PercentSizer, percents = 90)
 
     # Set the commission
-    cerebro.broker.setcommission(commission=0.005)
+    cerebro.broker.setcommission(commission=0.0005)
 
     # analysers
     cerebro.addanalyzer(bt.analyzers.SharpeRatio, _name = "sharpe")
