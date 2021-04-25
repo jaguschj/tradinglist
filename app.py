@@ -99,7 +99,7 @@ list_selector = [ html.H5("List Selector"),
 
 tabs_div=[ dcc.Tabs(id='tabs-example', value='tab-1', children=[
                     dcc.Tab(label='Trading List', value='tab-1'),
-                    dcc.Tab(label='Backtrade', value='tab-2',
+                    dcc.Tab(label='Charts', value='tab-2',
                             children=[html.Div(id='plot-picture')]),
                     dcc.Tab(label='Plot List', value='tab-3',
                             #children=[html.Div(className='row',
