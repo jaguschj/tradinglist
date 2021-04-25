@@ -229,7 +229,7 @@ def opt_symbol(symbol='DPW.DE',
         multiplier = [2.5,3.5]
     else:
         period = range(3,20,2)
-        multiplier = np.linspace(1.5,5.5,num=11)
+        multiplier = np.linspace(1.5,5.5,num=11).round(3)
     # Add a strategy
     strats = cerebro.optstrategy(
             SuperTrendStrategy,
