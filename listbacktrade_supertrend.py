@@ -131,8 +131,15 @@ def create_list(symdf):
   
   multiplier=3
   period = 12
-  symdf['multiplier'].fillna(3)
-  symdf['period'].fillna(12)
+  if 'period' in symdf.columns:      
+      symdf['period'].fillna(12)
+  else:
+      symdf['period']=12
+  if 'multiplier' in symdf.columns:
+      symdf['multiplier'].fillna(3)
+  else:
+      symdf['multiplier']=3
+      
   symdf['period']=symdf['period'].values.astype(int)
 
   for index,row in symdf.iloc[:].iterrows():
