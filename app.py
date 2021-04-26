@@ -205,7 +205,7 @@ def plot_table(filename):
                                         "Sharpe: %{customdata[1]:.3f}<br>" +
                                         "Return: %{x:.3f}<br>" +
                                         "ind: %{customdata[2]:.2f}<br>" +
-                                        "d2i: %{customdata[4]}" +
+                                        "d2i: %{customdata[4]}<br>" +
                                         "close: %{customdata[3]:.2f}<br>" +
                                         "<extra>Drawdown: %{customdata[5]}</extra>",
                                  customdata=dfr[['Symbol','Sharperatio','indicator','close','d2i','Drawdown']], # hover text goes here))))

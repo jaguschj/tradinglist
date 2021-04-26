@@ -302,6 +302,7 @@ def update_parameter_table(listname):
         #pcol = df.columns.get_loc("period")
         #mcol = df.columns.get_loc("multiplier")
         for ix,row in df.iloc[:].iterrows():
+            print('######  %s  ######'%row.symbol)
             optset = opt_parameters(row.symbol)
             df.loc[ix,["period","multiplier"]]=optset[['period','multiplier']].values
         df['period']=df['period'].values.astype(int)
