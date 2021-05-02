@@ -196,7 +196,7 @@ def plot_share(share_name,data,tildate=None,volatility=0,log=False):
     #latest_close=y.loc[data['Date'].idxmax()]
     data_avg=y.rolling(avg,center=False).mean()
     
-    sb = supertrend_bands(data)
+    #sb = supertrend_bands(data)
     st = supertrend(data)
     
     # volatility: 
@@ -261,6 +261,7 @@ def plot_share(share_name,data,tildate=None,volatility=0,log=False):
     fig.add_trace(go.Scatter(x=data.index, 
                     y=y_vola,
                     name='Volatility',
+                    line = dict(color='orange',width=2),
                   fill='tozeroy',
                       ),
                   row=2,col=1,
@@ -305,8 +306,9 @@ def plot_share(share_name,data,tildate=None,volatility=0,log=False):
             opacity=0.3,
         ))
       '''              
-    volatility = y_vola.iloc[-1]
-    fig.update_layout(title='%s   Volatility: %.2f'%(share_name,volatility),
+    volatility = y_vola.iloc[-1]*100
+    lastdate = ' 30.04.21' #data.index.iloc[-1].str
+    fig.update_layout(title='%s  %s  Volatility: %.2f     %.2f'%(share_name, lastdate, volatility,data.Close.iloc[-1]),
                       )
     #,width=1500,height=400)
     

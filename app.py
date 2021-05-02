@@ -334,9 +334,18 @@ def hwrite(mytab):
        fh.write((str(mytab)))
     #pio.write_html(tdict,file= 'html.txt')
 
+def create_chart(symbol):
+    print('get %s'%symbol)
+    ticker = plot_chart.get_ticker(symbol)    
+    history=ticker.history(period='4y')
+    sharename = ticker.info['shortName']
+    print ('got %s'%sharename)
+
+    return plot_chart.plot_share(sharename, history)
+    
 
 def app_chart(listname):
-    df = pd.read_csv(filename,index_col=0)
+    df = pd.read_csv(listname,index_col=0)
     dfn = df.rename(columns={'symbol':'Symbol','name':'Company','multiplier':'f','period':'p',
                'ret':'Return','drawd':'Drawdown','shaper':'Sharperatio',
                'value':'asset','url':'Chart','dist2ind':'d2i'})
@@ -374,9 +383,10 @@ def app_chart(listname):
     return html.Div(children=[html.Div(dcc.Graph(id='basic2-interactions',figure=fig),
                               className='three columns'),
                             html.Div(dcc.Graph(id='plot-chart',
-                figure=plot_chart.plot_share(dfr.Company.iloc[0], dfr),
+                                    figure=create_chart(dfr.Symbol.iloc[-1]),
                                      className='nine columns',
-                                     style={'margin-top':'200px'}))])
+                                     style={'margin-top':'100px',
+                                            'height':'900px'}))])
     
 
     
@@ -397,8 +407,7 @@ def render_content(tab,listname):
         return [output]
         
     elif tab == 'tab-2':
-        image_filename='plots/result_AAL.png'
-        return html.Div([ html.Img(src=b64_image(image_filename),width="1200")])
+        return app_chart(listname)
     elif tab == 'tab-3':
         return plot_table(listname)
                     
