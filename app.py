@@ -18,6 +18,7 @@ import base64
 
 from IPython.display import display, HTML
 
+import plot_chart
 
 
 
@@ -100,7 +101,7 @@ list_selector = [ html.H5("List Selector"),
 tabs_div=[ dcc.Tabs(id='tabs-example', value='tab-1', children=[
                     dcc.Tab(label='Trading List', value='tab-1'),
                     dcc.Tab(label='Charts', value='tab-2',
-                            children=[html.Div(id='plot-picture')]),
+                            children=[html.Div(id='plot-chart')]),
                     dcc.Tab(label='Plot List', value='tab-3',
                             #children=[html.Div(className='row',
                                     children=[dbc.Row([
@@ -179,7 +180,7 @@ def set_color(buy,sell,dist2ind,indicator,close):
     return 'wheat'
 
 def plot_table(filename):
-    folder = 'plots'
+    #folder = 'plots'
     df = pd.read_csv(filename,index_col=0)
     dfn = df.rename(columns={'symbol':'Symbol','name':'Company','multiplier':'f','period':'p',
                'ret':'Return','drawd':'Drawdown','shaper':'Sharperatio',
@@ -332,8 +333,55 @@ def hwrite(mytab):
     with open('html.txt','w') as fh:
        fh.write((str(mytab)))
     #pio.write_html(tdict,file= 'html.txt')
+
+
+def app_chart(listname):
+    df = pd.read_csv(filename,index_col=0)
+    dfn = df.rename(columns={'symbol':'Symbol','name':'Company','multiplier':'f','period':'p',
+               'ret':'Return','drawd':'Drawdown','shaper':'Sharperatio',
+               'value':'asset','url':'Chart','dist2ind':'d2i'})
+    dfr = dfn.round({'f':1,'Return':2,'Drawdown':2,'Sharperatio':2,
+                   'asset':1,'indicator':2,'close':2,'d2i':3})
+    #dfr.Chart = dfr.Chart.map(lambda x: '[%s](<http://localhost:8000/%s>)'%(x,x))
+    dfr['color']=dfr.apply(lambda x: set_color(x.buy,x.sell,x.d2i,x.indicator,x.close),axis=1)
+    dfr = dfr.iloc[::-1]
+
+    layout = go.Layout(
+        xaxis=dict(range=[-10, 50]),
+        height=1000,
+        width = 400)
+
+    fig = go.Figure(data=[go.Bar(y=dfr.Company,
+                                 x=dfr.Return,
+                                 marker=dict(color=dfr.color),
+                                 text = dfr.Company,
+                                 hovertemplate=
+                                        "<b>%{text}</b><br><br>" +
+                                        "%{customdata[0]}<br>" +
+                                        "Sharpe: %{customdata[1]:.3f}<br>" +
+                                        "Return: %{x:.3f}<br>" +
+                                        "ind: %{customdata[2]:.2f}<br>" +
+                                        "d2i: %{customdata[4]}<br>" +
+                                        "close: %{customdata[3]:.2f}<br>" +
+                                        "<extra>Drawdown: %{customdata[5]}</extra>",
+                                 customdata=dfr[['Symbol','Sharperatio','indicator','close','d2i','Drawdown']], # hover text goes here))))
+                                 #name = 'returns'
+                                 orientation='h'
+                                 )],
+                        layout=layout)
+    #return html.Div([dcc.Graph(id='basic-interactions',figure=fig)])
     
-#@app.callback(Output('plot-picture','children'),
+    return html.Div(children=[html.Div(dcc.Graph(id='basic2-interactions',figure=fig),
+                              className='three columns'),
+                            html.Div(dcc.Graph(id='plot-chart',
+                figure=plot_chart.plot_share(dfr.Company.iloc[0], dfr),
+                                     className='nine columns',
+                                     style={'margin-top':'200px'}))])
+    
+
+    
+    
+#@app.callback(Output('plot-chart','children'),
 #                Input())
 #def render_picture(linkname):
 #    return html.Div(html.Img(id= 'myplot', src='plots/result_AAL.png'))
