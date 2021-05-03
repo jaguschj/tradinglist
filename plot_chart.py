@@ -14,10 +14,11 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import yfinance as yf
 from datetime import datetime
+import mng_data
 
 
 def atr(df,period,drift=1):
-    df['atr']=ta.atr(df.High,df.Low,df.Close,length=period)
+    df['atr']=ta.atr(df.High,df.Low,df.Close,length=period).copy()
     #df.apply(lambda x: ta.atr(x.High,x.Low,x.Close,length=period))
     return df
 
@@ -216,9 +217,11 @@ def plot_share(share_name,data,tildate=None,volatility=0,log=False):
                 high=data['High'],
                 low=data['Low'],
                 close=data['Close'],
-                name = 'OHLC'),
+                name = 'OHLC',
+                ),                  
                   row=1,col=1,
                 secondary_y=True)
+    fig.update_layout(xaxis_rangeslider_visible=False)    
     dfs = longshort_periods(st,'tr')
     straces = traces_long_short(dfs)
     for trace in straces:
@@ -254,11 +257,12 @@ def plot_share(share_name,data,tildate=None,volatility=0,log=False):
 
     # include a go.Bar trace for volumes
     fig.add_trace(go.Bar(x=data.index, y=data['Volume'],
-                         name='Volume'),
+                         name='Volume',
+                         marker_color='rgb(158,202,225)'),
                   row=1,col=1,
                secondary_y=False)
     # add subplot
-    fig.add_trace(go.Scatter(x=data.index, 
+    fig.add_trace(go.Scatter(x=y_vola.index, 
                     y=y_vola,
                     name='Volatility',
                     line = dict(color='orange',width=2),
@@ -278,7 +282,7 @@ def plot_share(share_name,data,tildate=None,volatility=0,log=False):
     if log:
         fig.update_yaxes(title_text="y-axis in logarithmic scale", type="log", row=1, col=1)
         fig.layout.yaxis2.type='log'#update_yaxes2(title_text="y-axis in logarithmic scale", type="log", row=1, col=2)
-    fig.show()
+    #fig.show()
     
     # fig.add_trace(go.Scatter(x=[opt_dates.min(),opt_dates.max()],
     #                 y=[(1+volatility)*latest_close,(1+volatility)*latest_close],
@@ -289,28 +293,17 @@ def plot_share(share_name,data,tildate=None,volatility=0,log=False):
     #                 mode='lines',
     #                 name='vola %.2f'%volatility) )
     
-    '''
-    fig.add_shape(
-        # filled Rectangle
-        go.layout.Shape(
-            type="rect",
-            x0=opt_dates.min(),
-            y0=(1-volatility)*latest_close,
-            x1=opt_dates.max(),
-            y1=(1+volatility)*latest_close,
-            line=dict(
-                color="RoyalBlue",
-                width=2,
-            ),
-            fillcolor="LightSkyBlue",
-            opacity=0.3,
-        ))
-      '''              
-    volatility = y_vola.iloc[-1]*100
-    lastdate = ' 30.04.21' #data.index.iloc[-1].str
-    fig.update_layout(title='%s  %s  Volatility: %.2f     %.2f'%(share_name, lastdate, volatility,data.Close.iloc[-1]),
-                      )
-    #,width=1500,height=400)
+    lastdate = data.index[-1]
+    volatility = y_vola[lastdate]*100
+    #lastdate = ' 30.04.21' #data.index.iloc[-1].str
+    tabs = '\t'*5
+    title = '%s'%lastdate
+    title += tabs+'Price %.2f'%data.Close.iloc[-1]
+    title += tabs + 'Volatility %.2f'%volatility
+    title += tabs + '%s'%share_name
+    fig.update_layout(title=title,
+    #,width=1500,
+    height=1200)
     
     fig.update_xaxes(showgrid=True)
     #fig.write_html('%s.html'%(share_name))
@@ -320,23 +313,31 @@ def plot_share(share_name,data,tildate=None,volatility=0,log=False):
 
 if __name__=='__main__':
     today=datetime.today()
-    symbol='BAS.DE'
-    filename = symbol+'x.csv'
-    if os.path.exists(filename):
-        #history=pd.read_csv(filename)
-        sharename = filename[:-5]
-        history = pd.read_csv(filename,index_col=0)
-    else:
-        ticker = get_ticker(symbol)    
-        history=ticker.history(period='2y')
-        dividends=ticker.dividends
-        dividends.to_csv(filename[:-5]+'_div.csv')
-        history.to_csv(filename)
-        sharename = ticker.info['shortName']
-    plot_share(sharename,history,today).show()
+    symbol='CBK.DE'
+    #filename = symbol+'x.csv'
     
-    period=12
-    dfatr=atr(history,period)
+    listname = 'extra.csv'
+    dfl = pd.read_csv(listname,index_col=0)
+    symbol = dfl.symbol.iloc[0]
+    df = mng_data.read_data(listname)
+    sharename=dfl['name'].loc[dfl.symbol==symbol].values[0]
+    history = df[df['ticker']==symbol].copy()
+    history.set_index('Date',inplace=True)
+# =============================================================================
+# 
+#     if os.path.exists(filename):
+#         #history=pd.read_csv(filename)
+#         sharename = filename[:-5]
+#         history = pd.read_csv(filename,index_col=0)
+#     else:
+#         ticker = get_ticker(symbol)    
+#         history=ticker.history(period='2y')
+#         dividends=ticker.dividends
+#         dividends.to_csv(filename[:-5]+'_div.csv')
+#         history.to_csv(filename)
+#         sharename = ticker.info['shortName']
+# =============================================================================
+    plot_share(sharename,history,today)
     
     
     

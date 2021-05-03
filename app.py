@@ -19,6 +19,7 @@ import base64
 from IPython.display import display, HTML
 
 import plot_chart
+import mng_data
 
 
 
@@ -46,8 +47,10 @@ else:
     (srcfolder,selffile)=os.path.split(os.path.abspath(__file__))
 plotfolder = os.path.join(srcfolder,'plots')
 listfolder = plotfolder
+datafolder = os.path.join(srcfolder,'data')
 print('working  %s'%platform)
 print('working in %s'%listfolder)
+print('data in %s'%datafolder)
 
 #plotfolder = 'plots'
 #listfolder = 'plots'
@@ -85,85 +88,53 @@ def get_list_files(folder):
             options.append({'label':file, 'value':os.path.join(folder,file)})    
     return options
 
-options=get_list_files(listfolder)
-if options:
-    value=options[0]['value']
-else:
-    value=''
+def app_chart(listname):   # not used (dropdown instead)
+    df = pd.read_csv(listname,index_col=0)
+    dfn = df.rename(columns={'symbol':'Symbol','name':'Company','multiplier':'f','period':'p',
+               'ret':'Return','drawd':'Drawdown','shaper':'Sharperatio',
+               'value':'asset','url':'Chart','dist2ind':'d2i'})
+    dfr = dfn.round({'f':1,'Return':2,'Drawdown':2,'Sharperatio':2,
+                   'asset':1,'indicator':2,'close':2,'d2i':3})
+    #dfr.Chart = dfr.Chart.map(lambda x: '[%s](<http://localhost:8000/%s>)'%(x,x))
+    dfr['color']=dfr.apply(lambda x: set_color(x.buy,x.sell,x.d2i,x.indicator,x.close),axis=1)
+    dfr = dfr.iloc[::-1]
 
-list_selector = [ html.H5("List Selector"),
-                  dcc.Dropdown(id='list_selector',
-                        options=options,
-                        value=value
-                        )
-                 ]
+    layout = go.Layout(
+        xaxis=dict(range=[-10, 50]),
+        height=1000,
+        width = 400)
 
-tabs_div=[ dcc.Tabs(id='tabs-example', value='tab-1', children=[
-                    dcc.Tab(label='Trading List', value='tab-1'),
-                    dcc.Tab(label='Charts', value='tab-2',
-                            children=[html.Div(id='plot-chart')]),
-                    dcc.Tab(label='Plot List', value='tab-3',
-                            #children=[html.Div(className='row',
-                                    children=[dbc.Row([
-                                    dbc.Col([
-                                        html.Div(id='basic-interactions',className='three columns')
-                                        #dcc.Graph(id='basic-interactions')#,figure=None)
-                                        ],
-    style={'width': '30vH', 'float': 'right'},
-                                    #width=dict(size=3,order='last'),
-                                    align='end'
-                                    ), 
-                                    #dbc.Col([html.Div(id='hover-data',#children=[],
-#    style={'width': '50%', 'display': 'inline-block', 'vertical-align': 'middle'},
-    #style={'width': True,'margin-right': '500px', 'margin':'200px','float': 'right'},
-    #width=dict(size=9,order=1)
-                                            #),
-                                ])]#,align='end'
-                            #)]
-                            )
-                    #]),
-               ])]
+    fig = go.Figure(data=[go.Bar(y=dfr.Company,
+                                 x=dfr.Return,
+                                 marker=dict(color=dfr.color),
+                                 text = dfr.Company,
+                                 hovertemplate=
+                                        "<b>%{text}</b><br><br>" +
+                                        "%{customdata[0]}<br>" +
+                                        "Sharpe: %{customdata[1]:.3f}<br>" +
+                                        "Return: %{x:.3f}<br>" +
+                                        "ind: %{customdata[2]:.2f}<br>" +
+                                        "d2i: %{customdata[4]}<br>" +
+                                        "close: %{customdata[3]:.2f}<br>" +
+                                        "<extra>Drawdown: %{customdata[5]}</extra>",
+                                 customdata=dfr[['Symbol','Sharperatio','indicator','close','d2i','Drawdown']], # hover text goes here))))
+                                 #name = 'returns'
+                                 orientation='h'
+                                 )],
+                        layout=layout)
+    #return html.Div([dcc.Graph(id='basic-interactions',figure=fig)])
+    print ('before')
+    plotfigure= create_chart(dfr.Symbol.iloc[-1],dfr.Company.iloc[-1])
+    print ('after')
+    return html.Div(children=[html.Div(dcc.Graph(id='basic2-interactions',figure=fig),
+                              className='three columns'),
+                            html.Div(dcc.Graph(id='plot-chart',
+                                    figure=plotfigure,
+                                     className='nine columns',
+                                     style={'margin-top':'100px',
+                                            'height':'900px'}))])
+    
 
-app.layout = dbc.Container([
-        dbc.Row([
-            dbc.Col([
-                html.H2("Trading Assets Overview"),
-                html.H5("Jens Jagusch"),
-            ], width=True),
-            # dbc.Col([
-            #     html.Img(src="assets/MIT-logo-red-gray-72x38.svg", alt="MIT Logo", height="30px"),
-            # ], width=1)
-        ], align="end"),
-        html.Hr(),
-        dbc.Row( [dbc.Col(
-        
-            [html.Div(list_selector),
-                  html.Div(id='dd-output-container'),
-                   html.Div(tabs_div),
-                   html.Div(id='tabs-example-content'),
-                  ]),
-                
-#        dbc.Col([
-#                #    dcc.Link(id='link',pathname='posts/results_AAPL.png')
-#                #    
-#                html.Div(className='row', children=[
-#                    
-#            html.Pre(id='hover-datax',style=styles['pre'],children=[
-#            dcc.Markdown(("""
-#              Click on points in the graph.
-#            """))
-#            ]),
-#             ])
-#            ])
-                          
-            #html.Pre(id='hover-data', style=styles['pre'],
-            #className='three columns'),
-            ]),
-
-    html.Hr(),
-    ],
-    fluid=True
-    )
 
 
 def set_color(buy,sell,dist2ind,indicator,close):
@@ -334,60 +305,148 @@ def hwrite(mytab):
        fh.write((str(mytab)))
     #pio.write_html(tdict,file= 'html.txt')
 
-def create_chart(symbol):
+def create_chart(symbol,sharename):
     print('get %s'%symbol)
-    ticker = plot_chart.get_ticker(symbol)    
-    history=ticker.history(period='4y')
-    sharename = ticker.info['shortName']
+    #ticker = plot_chart.get_ticker(symbol)    
+    #history=ticker.history(period='4y')
+    
+    history = mng_data.read_single(symbol)
+    
+    
+    
+    #sharename = ticker.info['shortName']
     print ('got %s'%sharename)
 
     return plot_chart.plot_share(sharename, history)
     
 
-def app_chart(listname):
-    df = pd.read_csv(listname,index_col=0)
-    dfn = df.rename(columns={'symbol':'Symbol','name':'Company','multiplier':'f','period':'p',
-               'ret':'Return','drawd':'Drawdown','shaper':'Sharperatio',
-               'value':'asset','url':'Chart','dist2ind':'d2i'})
-    dfr = dfn.round({'f':1,'Return':2,'Drawdown':2,'Sharperatio':2,
-                   'asset':1,'indicator':2,'close':2,'d2i':3})
-    #dfr.Chart = dfr.Chart.map(lambda x: '[%s](<http://localhost:8000/%s>)'%(x,x))
-    dfr['color']=dfr.apply(lambda x: set_color(x.buy,x.sell,x.d2i,x.indicator,x.close),axis=1)
-    dfr = dfr.iloc[::-1]
-
-    layout = go.Layout(
-        xaxis=dict(range=[-10, 50]),
-        height=1000,
-        width = 400)
-
-    fig = go.Figure(data=[go.Bar(y=dfr.Company,
-                                 x=dfr.Return,
-                                 marker=dict(color=dfr.color),
-                                 text = dfr.Company,
-                                 hovertemplate=
-                                        "<b>%{text}</b><br><br>" +
-                                        "%{customdata[0]}<br>" +
-                                        "Sharpe: %{customdata[1]:.3f}<br>" +
-                                        "Return: %{x:.3f}<br>" +
-                                        "ind: %{customdata[2]:.2f}<br>" +
-                                        "d2i: %{customdata[4]}<br>" +
-                                        "close: %{customdata[3]:.2f}<br>" +
-                                        "<extra>Drawdown: %{customdata[5]}</extra>",
-                                 customdata=dfr[['Symbol','Sharperatio','indicator','close','d2i','Drawdown']], # hover text goes here))))
-                                 #name = 'returns'
-                                 orientation='h'
-                                 )],
-                        layout=layout)
-    #return html.Div([dcc.Graph(id='basic-interactions',figure=fig)])
+def get_company_names(listname):
     
-    return html.Div(children=[html.Div(dcc.Graph(id='basic2-interactions',figure=fig),
-                              className='three columns'),
-                            html.Div(dcc.Graph(id='plot-chart',
-                                    figure=create_chart(dfr.Symbol.iloc[-1]),
-                                     className='nine columns',
-                                     style={'margin-top':'100px',
-                                            'height':'900px'}))])
+    df = mng_data.read_list(listname)
+    options=[]
+    for ix,row in df.iterrows():
+        options.append({'label':row['name'], 'value':row.symbol})    
+
+    return options
     
+
+
+
+options=get_list_files(listfolder)
+if options:
+    listfilepath=options[0]['value']
+else:
+    listfilepath=''
+
+list_selector = [ html.H5("List Selector"),
+                  dcc.Dropdown(id='list_selector',
+                        options=options,
+                        value=listfilepath,
+                        style={'width':'300px'}
+                        )
+                 ]
+company_names = get_company_names(listfilepath)
+company_default= company_names[0]
+
+tabs_div=[ dcc.Tabs(id='tabs-example', value='tab-1', children=[
+                    dcc.Tab(label='Trading List', value='tab-1'),
+                    #dcc.Tab(label='Chart Hover', value='tab-2',
+                    #        children = []),#[app_chart(value)]),
+# =============================================================================
+#                             
+#                             children=[dbc.Row([
+#                                 dbc.Col([                            
+#                                  html.Div(children=[dcc.Graph(id='basic2-interactions')],
+#                                      className='three columns'),
+#                                  html.Div(dcc.Graph(id='plot-chart'),
+#                                      className='nine columns',
+#                                      style={'margin-top':'100px',
+#                                             'height':'900px'})])])]),
+# =============================================================================
+    
+                     dcc.Tab(label='Plot List', value='tab-3',
+                            #children=[html.Div(className='row',
+                                    children=[dbc.Row([
+                                    dbc.Col([
+                                        html.Div(id='basic-interactions',className='three columns'),
+                                        html.Div(id='hover-data')
+                                        #dcc.Graph(id='basic-interactions')#,figure=None)
+                                        ],
+    style={'width': '30vH', 'float': 'right'},
+                                    #width=dict(size=3,order='last'),
+                                    align='end'
+                                    ), 
+                                    #dbc.Col([html.Div(id='hover-data',#children=[],
+#    style={'width': '50%', 'display': 'inline-block', 'vertical-align': 'middle'},
+    #style={'width': True,'margin-right': '500px', 'margin':'200px','float': 'right'},
+    #width=dict(size=9,order=1)
+                                            #),
+                                ])]#,align='end'
+                            #)]
+                            ),
+                    dcc.Tab(label='Chart DD', value='tab-4',
+                          children=[#dbc.Row([
+                                 dbc.Col([                            
+                                  html.Div(children=[dcc.Dropdown(id='company-selector',
+                                                     options=company_names,
+                                                     value = company_default['value'])],
+                                      #className='three columns'
+                                      style={'width':'300px'}
+                                      ),
+                                  #html.Div(className='nine columns'),
+                                  html.Div(dcc.Graph(id='plot-chart2',
+                                                     #figure=create_chart(company_default['value'],company_default['label']),
+                                                     style={'height':'1200px'}),
+                                      #className='nine columns',
+                                      style={'margin-top':'10px',
+                                             'height':'1200px'})])]),#]),
+
+                            
+                     
+                    #]),
+               ])]
+
+app.layout = dbc.Container([
+        dbc.Row([
+            dbc.Col([
+                html.H2("Trading Assets Overview"),
+                html.H5("Jens Jagusch"),
+            ], width=True),
+            # dbc.Col([
+            #     html.Img(src="assets/MIT-logo-red-gray-72x38.svg", alt="MIT Logo", height="30px"),
+            # ], width=1)
+        ], align="end"),
+        html.Hr(),
+        dbc.Row( [dbc.Col(
+        
+            [html.Div(list_selector),
+                  html.Div(id='dd-output-container'),
+                   html.Div(tabs_div),
+                   html.Div(id='tabs-example-content'),
+                  ]),
+                
+#        dbc.Col([
+#                #    dcc.Link(id='link',pathname='posts/results_AAPL.png')
+#                #    
+#                html.Div(className='row', children=[
+#                    
+#            html.Pre(id='hover-datax',style=styles['pre'],children=[
+#            dcc.Markdown(("""
+#              Click on points in the graph.
+#            """))
+#            ]),
+#             ])
+#            ])
+                          
+            #html.Pre(id='hover-data', style=styles['pre'],
+            #className='three columns'),
+            ]),
+
+    html.Hr(),
+    ],
+    fluid=True
+    )
+
 
     
     
@@ -397,19 +456,23 @@ def app_chart(listname):
 #    return html.Div(html.Img(id= 'myplot', src='plots/result_AAL.png'))
     
 
-@app.callback(Output('tabs-example-content', 'children'),
+@app.callback([Output('tabs-example-content', 'children'),
+               Output('company-selector','options')],
               [Input('tabs-example', 'value'),
               Input('list_selector', 'value')])
 def render_content(tab,listname):
+    companyoptions = get_company_names(listname)
     if tab == 'tab-1':
         output=parse_table(listname)
         #hwrite(output)
-        return [output]
+        return [output,companyoptions]
         
-    elif tab == 'tab-2':
-        return app_chart(listname)
+    #elif tab == 'tab-2':
+    #    return ([None,None])#app_chart(listname)
     elif tab == 'tab-3':
-        return plot_table(listname)
+        return [plot_table(listname),companyoptions]
+    elif tab == 'tab-4':
+        return [None,companyoptions]
                     
 @app.callback(
     Output('hover-data', 'children'),
@@ -435,7 +498,41 @@ def display_hover_data(hoverData):
 
     #return json.dumps(hoverData, indent=2)
                     
-              
+# =============================================================================
+# @app.callback(
+#     Output('plot-chart', 'figure'),
+#     [Input('basic2-interactions', 'hoverData')])
+# def display_chart(hoverData):    
+#     if hoverData is None:
+#         return (None)
+#     print ('HoverData',hoverData)
+#     symb = hoverData['points'][0]['customdata'][0]
+#     sharename = 'blabla'
+#     fig = create_chart(symb, sharename)
+#     return fig
+# 
+# =============================================================================
+
+@app.callback(
+    Output('plot-chart2', 'figure'),
+    [Input('company-selector', 'value')],
+    [State('company-selector', 'options')])
+def display_chart(ticker,companyoptions):    
+    if ticker is None:
+        return (None)
+    company = ' '
+    for opt in companyoptions:
+        if opt['value']==ticker:
+            company = opt['label']
+            break
+    #print ('Company',companyoptions)
+    #company=companyoptions[0]
+    fig = create_chart(ticker, company)#.todict()
+    return fig
+                
+
+
+
 # =============================================================================
 # 
 # @app.callback(
@@ -459,7 +556,7 @@ except:
     
 if __name__=='__main__':
     
-    app.run_server(debug=True)
+    app.run_server(debug=True,port=8051)
 else:
     server = app.server
     
