@@ -1,32 +1,32 @@
 ,name,symbol,period,multiplier
-0,DAX, ^GDAXI,12,3
-1,Adidas, ADS.DE ,12,3
-2,Allianz,ALV.DE ,12,3
-3,BASF, BAS.DE ,12,3
-4,Bayer, BAYN.DE ,12,3
-5,BMW, BMW.DE ,12,3
-6,Continental, CON.DE ,12,3
-7,Covestro, 1COV.DE,12,3
-8,Daimler,DAI.DE,12,3
-9,Delivery Hero,DHER.DE,12,3
-10,Deutsche Bank,DBK.DE ,12,3
-11,Deutsche Boerse,DB1.DE,12,3
-12,Deutsche Post, DPW.DE ,12,3
-13,Deutsche Telekom,DTE.DE ,12,3
-14,Deutsche Wohnen, DWNI.DE,12,3
-15,E.ON, EOAN.DE,12,3
-16,Fresenius, FRE.DE,12,3
-17,Fresenius Medical Care,FME.DE,12,3
-18,HeidelbergCement, HEI.DE,12,3
-19,Henkel, HEN3.DE,12,3
-20,Infineon,IFX.DE,12,3
-21,Linde, LIN.DE,12,3
-22,Merck, MRK.DE,12,3
-23,MTU Aero Engines,MTX.DE ,12,3
-24,Muenchener Rueck, MUV2.DE,12,3
-25,RWE, RWE.DE,12,3
-26,SAP, SAP.DE,12,3
-27,Siemens, SIE.DE,12,3
-28,Siemens Energy, ENR.DE,12,3
-29,Volkswagen, VOW3.DE,12,3
-30,Vonovia, VNA.DE,12,3
+0,DAX,^GDAXI,17,3.5
+1,Adidas,ADS.DE,17,5.5
+2,Allianz,ALV.DE,19,1.5
+3,BASF,BAS.DE,9,1.5
+4,Bayer,BAYN.DE,13,3.9
+5,BMW,BMW.DE,13,5.1
+6,Continental,CON.DE,17,4.7
+7,Covestro,1COV.DE,3,4.7
+8,Daimler,DAI.DE,19,3.9
+9,Delivery Hero,DHER.DE,17,2.3
+10,Deutsche Bank,DBK.DE,7,2.3
+11,Deutsche Boerse,DB1.DE,17,2.7
+12,Deutsche Post,DPW.DE,19,5.1
+13,Deutsche Telekom,DTE.DE,13,2.3
+14,Deutsche Wohnen,DWNI.DE,17,4.7
+15,E.ON,EOAN.DE,3,2.7
+16,Fresenius,FRE.DE,19,1.9
+17,Fresenius Medical Care,FME.DE,19,1.5
+18,HeidelbergCement,HEI.DE,17,5.5
+19,Henkel,HEN3.DE,17,2.7
+20,Infineon,IFX.DE,19,5.5
+21,Linde,LIN.DE,9,3.1
+22,Merck,MRK.DE,3,3.1
+23,MTU Aero Engines,MTX.DE,3,2.3
+24,Muenchener Rueck,MUV2.DE,7,1.9
+25,RWE,RWE.DE,3,2.3
+26,SAP,SAP.DE,15,2.3
+27,Siemens,SIE.DE,19,3.5
+28,Siemens Energy,ENR.DE,7,1.9
+29,Volkswagen,VOW3.DE,19,5.5
+30,Vonovia,VNA.DE,3,2.3
