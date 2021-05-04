@@ -1,101 +1,101 @@
 ,name,symbol,period,multiplier
-0,American Airlines Group Inc,AAL,12,3
-1,Apple Inc,AAPL,12,3
-2,Abeona Therapeutics Inc,ABEO,12,3
-3,Airbnb Inc,ABNB,12,3
-4,Acasti Pharma Inc,ACST,12,3
-5,Aeterna Zentaris Inc,AEZS,12,3
-6,Alkido Pharma Inc,AIKI,12,3
-7,Applied Materials Inc,AMAT,12,3
-8,Advanced Micro Devices Inc,AMD,12,3
-9,Apache Corporation,APA,12,3
-10,Aphria Inc,APHA,12,3
-11,Assertio Holdings Inc,ASRT,12,3
-12,Atossa Therapeutics Inc,ATOS,12,3
-13,Baidu Inc,BIDU,12,3
-14,Bilibili Inc,BILI,12,3
-15,Bionano Genomics Inc,BNGO,12,3
-16,Canaan Inc,CAN,12,3
-17,ChromaDex Corporation,CDXC,12,3
-18,Cinedigm Corporation,CIDM,12,3
-19,Clover Health Investments Corporation,CLOV,12,3
-20,Comcast Corporation,CMCSA,12,3
-21,Cisco Systems Inc,CSCO,12,3
-22,Castor Maritime Inc,CTRM,12,3
-23,Citius Pharmaceuticals Inc,CTXR,12,3
-24,Dropbox Inc,DBX,12,3
-25,Diffusion Pharmaceuticals Inc,DFFN,12,3
-26,DraftKings Inc,DKNG,12,3
-27,Dynavax Technologies Corp,DVAX,12,3
-28,Ebang International Holdings Inc,EBON,12,3
-29,Etsy Inc,ETSY,12,3
-30,Facebook Inc,FB,12,3
-31,FuelCell Energy Inc,FCEL,12,3
-32,Fifth Third Bancorp,FITB,12,3
-33,Futu Holdings Ltd,FUTU,12,3
-34,Gevo Inc,GEVO,12,3
-35,Guardion Health Sciences Inc,GHSI,12,3
-36,Gilead Sciences Inc,GILD,12,3
-37,Genius Brands International Inc,GNUS,12,3
-38,Huntington Bancshares Inc,HBAN,12,3
-39,Host Hotels and Resorts Inc,HST,12,3
-40,Ideanomics Inc,IDEX,12,3
-41,Inovio Pharmaceuticals Inc New,INO,12,3
-42,Intel Corporation,INTC,12,3
-43,iQiyi Inc,IQ,12,3
-44,Iterum Therapeutics PLC,ITRM,12,3
-45,JD com Inc,JD,12,3
-46,Li Auto Inc,LI,12,3
-47,Lixte Biotechnology Holdings Inc,LIXT,12,3
-48,Luokung Technology Corporation,LKCO,12,3
-49,Marathon Patent Group Inc,MARA,12,3
-50,Meten EdtechX Education Group Ltd,METX,12,3
-51,MICT Inc,MICT,12,3
-52,Moderna Inc,MRNA,12,3
-53,Marvell Technology Group Ltd,MRVL,12,3
-54,Microsoft Corporation,MSFT,12,3
-55,Micron Technology Inc,MU,12,3
-56,Microvision Inc,MVIS,12,3
-57,Naked Brands Group Ltd,NAKD,12,3
-58,Nikola Corporation,NKLA,12,3
-59,NortonLifeLock Inc,NLOK,12,3
-60,Nano Dimension Ltd,NNDM,12,3
-61,NVIDIA Corporation,NVDA,12,3
-62,Ocugen Inc,OCGN,12,3
-63,Organigram Holdings Inc,OGI,12,3
-64,ON Semiconductor,ON,12,3
-65,Onconova Therapeutics Inc,ONTX,12,3
-66,Opendoor Technologies Inc,OPEN,12,3
-67,Peoples United Financial Inc,PBCT,12,3
-68,Plug Power Inc,PLUG,12,3
-69,PayPal Holdings Inc,PYPL,12,3
-70,QUALCOMM Inc,QCOM,12,3
-71,Riot Blockchain Inc,RIOT,12,3
-72,Sabre Corporation,SABR,12,3
-73,Starbucks Corporation,SBUX,12,3
-74,Seanergy Maritime Holdings Corporation,SHIP,12,3
-75,Sirius XM Holdings Inc,SIRI,12,3
-76,SLM Corporation,SLM,12,3
-77,Sundial Growers Inc,SNDL,12,3
-78,Electrameccanica Vehicles Corporation,SOLO,12,3
-79,Sorrento Therapeutics Inc,SRNE,12,3
-80,Sensus Healthcare Inc,SRTS,12,3
-81,Tellurian Inc,TELL,12,3
-82,UP Fintech Holding Ltd,TIGR,12,3
-83,Tilray Inc,TLRY,12,3
-84,Tonix Pharmaceuticals Holding Corporation,TNXP,12,3
-85,Torchlight Energy Resources Inc,TRCH,12,3
-86,Tesla Inc,TSLA,12,3
-87,TherapeuticsMD Inc,TXMD,12,3
-88,United Airlines Holdings Inc,UAL,12,3
-89,ViacomCBS Inc,VIAC,12,3
-90,Vislink Technologies Inc,VISL,12,3
-91,Velodyne Lidar Inc,VLDR,12,3
-92,21Vianet Group Inc,VNET,12,3
-93,Viatris Inc,VTRS,12,3
-94,vTv Therapeutics Inc,VTVT,12,3
-95,Walgreens Boots Alliance Inc,WBA,12,3
-96,ContextLogic Inc,WISH,12,3
-97,Workhorse Group Inc,WKHS,12,3
-98,WSFS Financial Corporation,WSFS,12,3
-99,Zynga Inc,ZNGA,12,3
+0,American Airlines Group Inc,AAL,9,2.7
+1,Apple Inc,AAPL,3,3.5
+2,Abeona Therapeutics Inc,ABEO,7,1.9
+3,Airbnb Inc,ABNB,3,2.3
+4,Acasti Pharma Inc,ACST,5,1.9
+5,Aeterna Zentaris Inc,AEZS,15,1.5
+6,Alkido Pharma Inc,AIKI,9,1.9
+7,Applied Materials Inc,AMAT,3,3.5
+8,Advanced Micro Devices Inc,AMD,3,4.7
+9,Apache Corporation,APA,5,2.3
+10,Aphria Inc,APHA,3,5.1
+11,Assertio Holdings Inc,ASRT,13,1.9
+12,Atossa Therapeutics Inc,ATOS,9,3.1
+13,Baidu Inc,BIDU,13,3.9
+14,Bilibili Inc,BILI,5,5.5
+15,Bionano Genomics Inc,BNGO,3,2.3
+16,Canaan Inc,CAN,3,3.1
+17,ChromaDex Corporation,CDXC,11,1.5
+18,Cinedigm Corporation,CIDM,3,1.5
+19,Clover Health Investments Corporation,CLOV,15,1.5
+20,Comcast Corporation,CMCSA,11,5.5
+21,Cisco Systems Inc,CSCO,17,1.5
+22,Castor Maritime Inc,CTRM,5,1.9
+23,Citius Pharmaceuticals Inc,CTXR,7,4.3
+24,Dropbox Inc,DBX,19,2.3
+25,Diffusion Pharmaceuticals Inc,DFFN,3,1.5
+26,DraftKings Inc,DKNG,5,5.5
+27,Dynavax Technologies Corp,DVAX,13,3.1
+28,Ebang International Holdings Inc,EBON,3,1.5
+29,Etsy Inc,ETSY,3,5.1
+30,Facebook Inc,FB,5,5.5
+31,FuelCell Energy Inc,FCEL,3,1.5
+32,Fifth Third Bancorp,FITB,3,4.7
+33,Futu Holdings Ltd,FUTU,3,4.3
+34,Gevo Inc,GEVO,3,1.5
+35,Guardion Health Sciences Inc,GHSI,3,2.3
+36,Gilead Sciences Inc,GILD,3,2.7
+37,Genius Brands International Inc,GNUS,9,2.7
+38,Huntington Bancshares Inc,HBAN,7,5.1
+39,Host Hotels and Resorts Inc,HST,17,3.5
+40,Ideanomics Inc,IDEX,15,1.9
+41,Inovio Pharmaceuticals Inc New,INO,3,2.7
+42,Intel Corporation,INTC,17,2.3
+43,iQiyi Inc,IQ,7,2.7
+44,Iterum Therapeutics PLC,ITRM,17,1.9
+45,JD com Inc,JD,3,4.3
+46,Li Auto Inc,LI,19,2.3
+47,Lixte Biotechnology Holdings Inc,LIXT,19,3.1
+48,Luokung Technology Corporation,LKCO,15,3.1
+49,Marathon Patent Group Inc,MARA,3,3.9
+50,Meten EdtechX Education Group Ltd,METX,19,1.5
+51,MICT Inc,MICT,7,1.9
+52,Moderna Inc,MRNA,5,4.7
+53,Marvell Technology Group Ltd,MRVL,17,5.1
+54,Microsoft Corporation,MSFT,19,3.9
+55,Micron Technology Inc,MU,9,5.5
+56,Microvision Inc,MVIS,5,5.1
+57,Naked Brands Group Ltd,NAKD,11,2.3
+58,Nikola Corporation,NKLA,3,1.5
+59,NortonLifeLock Inc,NLOK,7,1.9
+60,Nano Dimension Ltd,NNDM,5,3.1
+61,NVIDIA Corporation,NVDA,13,2.3
+62,Ocugen Inc,OCGN,5,3.1
+63,Organigram Holdings Inc,OGI,3,1.5
+64,ON Semiconductor,ON,3,4.3
+65,Onconova Therapeutics Inc,ONTX,3,1.5
+66,Opendoor Technologies Inc,OPEN,13,3.1
+67,Peoples United Financial Inc,PBCT,5,5.1
+68,Plug Power Inc,PLUG,5,3.5
+69,PayPal Holdings Inc,PYPL,3,2.7
+70,QUALCOMM Inc,QCOM,17,4.3
+71,Riot Blockchain Inc,RIOT,13,3.9
+72,Sabre Corporation,SABR,3,3.1
+73,Starbucks Corporation,SBUX,19,5.5
+74,Seanergy Maritime Holdings Corporation,SHIP,17,2.3
+75,Sirius XM Holdings Inc,SIRI,15,2.7
+76,SLM Corporation,SLM,9,2.3
+77,Sundial Growers Inc,SNDL,9,2.7
+78,Electrameccanica Vehicles Corporation,SOLO,5,2.7
+79,Sorrento Therapeutics Inc,SRNE,7,3.1
+80,Sensus Healthcare Inc,SRTS,3,2.3
+81,Tellurian Inc,TELL,19,3.9
+82,UP Fintech Holding Ltd,TIGR,3,5.1
+83,Tilray Inc,TLRY,7,3.5
+84,Tonix Pharmaceuticals Holding Corporation,TNXP,17,2.3
+85,Torchlight Energy Resources Inc,TRCH,11,3.1
+86,Tesla Inc,TSLA,3,5.5
+87,TherapeuticsMD Inc,TXMD,19,1.9
+88,United Airlines Holdings Inc,UAL,5,4.7
+89,ViacomCBS Inc,VIAC,3,3.5
+90,Vislink Technologies Inc,VISL,3,1.9
+91,Velodyne Lidar Inc,VLDR,11,1.9
+92,21Vianet Group Inc,VNET,5,2.7
+93,Viatris Inc,VTRS,17,3.1
+94,vTv Therapeutics Inc,VTVT,19,1.5
+95,Walgreens Boots Alliance Inc,WBA,7,3.5
+96,ContextLogic Inc,WISH,3,1.5
+97,Workhorse Group Inc,WKHS,3,2.3
+98,WSFS Financial Corporation,WSFS,17,5.5
+99,Zynga Inc,ZNGA,13,2.3
