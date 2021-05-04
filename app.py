@@ -19,8 +19,6 @@ import base64
 
 from IPython.display import display, HTML
 
-import plot_chart
-import mng_data
 
 
 
@@ -47,6 +45,12 @@ if platform == 'productive':
 
 else:
     (srcfolder,selffile)=os.path.split(os.path.abspath(__file__))
+    
+    
+import plot_chart
+import mng_data
+
+    
 plotfolder = os.path.join(srcfolder,'plots')
 listfolder = plotfolder
 datafolder = os.path.join(srcfolder,'data')
