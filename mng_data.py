@@ -64,7 +64,24 @@ def read_single(ticker):
 
 
 if __name__ =='__main__':
-    listname = 'extra.csv'
-    update_data(listname)
-    df = read_data(listname)
+    
+    import argparse
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        description='update history through lists',
+    )
+
+    parser.add_argument('--listname', default='DAX.csv', type=str,
+                        help='List with data of shares')
+
+    args = parser.parse_args()
+
+    
+    
+    print('List %s'%args.listname)
+    update_data(args.listname) 
+    print('done')
+    
+    
+    
     
