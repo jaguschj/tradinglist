@@ -4,17 +4,21 @@ Created on Mon May  3 09:04:11 2021
 
 @author: JensJ
 """
-
+import os
 import yfinance as yf
 
 import pandas as pd
 from pathlib import Path
 
 
-p = Path('.')
+
+rundir,sourcefile=os.path.split(__file__)
+p = Path(rundir)
 DATAP = p / 'data'
 
-
+if not os.path.exists(DATAP):
+    os.mkdir(DATAP) 
+print('Saving Data to %s'%DATAP) 
 
 def update_data(listname,prd='4y',intv='1d'):
     dfl = pd.read_csv(listname,index_col=0)
