@@ -35,6 +35,7 @@ def spt_(df):
     df['tr'] = -1
     df['fu'] = df['bu'].copy()
     df['fl'] = df['bl'].copy()
+    # warning due to value setting on a slice
     for irow in range(1,len(df)):
         im1 = irow - 1
         if df.tr.iloc[im1] > 0: # up
@@ -55,9 +56,9 @@ def spt_(df):
                 #df.fu.iloc[irow] = df.bu.iloc[irow]
                 df.fl.iloc[irow] = max(df.fl.iloc[im1],df.bl.iloc[irow])
                 df.tr.iloc[irow] = 1
-    df['supertrend']=df['fu'].where((df['tr']>0),df.fl)
-    df['spt_u']=df['fu'].where((df['tr']>0),None)
-    df['spt_l']=df['fl'].where((df['tr']<0),None)
+    df['supertrend']=df['fu'].where((df['tr']>0),df.fl)#.copy()
+    df['spt_u']=df['fu'].where((df['tr']>0),None)#.copy()
+    df['spt_l']=df['fl'].where((df['tr']<0),None)#.copy()
     return df
 
 def supertrend(df,period=5,multiplier=2.3,drift=1):
@@ -337,7 +338,8 @@ if __name__=='__main__':
 #         history.to_csv(filename)
 #         sharename = ticker.info['shortName']
 # =============================================================================
-    plot_share(sharename,history,today)
+    fig = plot_share(sharename,history,today)
+    fig.show()
     
     
     
