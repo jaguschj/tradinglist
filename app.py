@@ -1,6 +1,7 @@
 #import plotly.express as px
 import os
 import fnmatch
+import site
 #import json
 import plotly.graph_objects as go
 
@@ -42,6 +43,7 @@ styles = {
 platform=os.getenv('app_env','productive')
 if platform == 'productive':
     srcfolder = '/home/jens/src/tradinglist'
+    site.addsitedir(srcfolder)
 
 else:
     (srcfolder,selffile)=os.path.split(os.path.abspath(__file__))
