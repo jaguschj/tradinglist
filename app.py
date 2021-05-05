@@ -313,7 +313,7 @@ def hwrite(mytab):
        fh.write((str(mytab)))
     #pio.write_html(tdict,file= 'html.txt')
 
-def create_chart(symbol,sharename):
+def create_chart(symbol,sharename,period=3,multiplier=2.5):
     print('get %s'%symbol)
     #ticker = plot_chart.get_ticker(symbol)    
     #history=ticker.history(period='4y')
@@ -325,7 +325,8 @@ def create_chart(symbol,sharename):
     #sharename = ticker.info['shortName']
     print ('got %s'%sharename)
 
-    return plot_chart.plot_share(sharename, history)
+    return plot_chart.plot_share(sharename, history,period=period,
+                                 multiplier=multiplier)
     
 
 def get_company_names(listname):
@@ -524,8 +525,11 @@ def display_hover_data(hoverData):
 @app.callback(
     Output('plot-chart2', 'figure'),
     [Input('company-selector', 'value')],
-    [State('company-selector', 'options')])
-def display_chart(ticker,companyoptions):    
+    [State('company-selector', 'options'),
+     State('list_selector', 'value')])
+def display_chart(ticker,companyoptions,list_selected):    
+    df = pd.read_csv(list_selected,index_col=0)
+
     if ticker is None:
         return (None)
     company = ' '
@@ -535,7 +539,14 @@ def display_chart(ticker,companyoptions):
             break
     #print ('Company',companyoptions)
     #company=companyoptions[0]
-    fig = create_chart(ticker, company)#.todict()
+    try:
+        myset = df.loc[df['symbol']==ticker]    
+        period = myset.period.values[0]
+        multiplier = myset.multiplier.values[0]
+    except:
+        period=7
+        multiplier=2.5
+    fig = create_chart(ticker, company,period=period,multiplier=multiplier)#.todict()
     return fig
                 
 
