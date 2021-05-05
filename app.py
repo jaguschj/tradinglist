@@ -316,7 +316,7 @@ def create_chart(symbol,sharename):
     #ticker = plot_chart.get_ticker(symbol)    
     #history=ticker.history(period='4y')
     
-    history = mng_data.read_single(symbol)
+    history = plot_chart.read_single(symbol)
     
     
     
@@ -328,7 +328,7 @@ def create_chart(symbol,sharename):
 
 def get_company_names(listname):
     
-    df = mng_data.read_list(listname)
+    df = plot_chart.read_list(listname)
     options=[]
     for ix,row in df.iterrows():
         options.append({'label':row['name'], 'value':row.symbol})    

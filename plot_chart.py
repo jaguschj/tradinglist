@@ -12,9 +12,49 @@ import pandas as pd
 #import json
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-import yfinance as yf
 from datetime import datetime
-import mng_data
+from pathlib import Path
+
+#import mng_data
+rundir,sourcefile=os.path.split(__file__)
+p = Path(rundir)
+DATAP = p / 'data'
+
+
+
+
+def read_list(listname):
+    dfl =  pd.read_csv(listname,index_col=0)
+    return dfl
+
+def read_data(listname):
+    # set the path to the files
+    dfl = read_list(listname)
+    #files = list()
+    # read the files into a dataframe
+    df_list = list()
+    for ticker in dfl.symbol:
+        filename = DATAP / f'ticker_{ticker}.csv'
+        #files.append(filename)
+    
+    
+    # find the files
+    #files = list(DATAP.glob('ticker_*.csv'))
+    
+    #for file in files:
+        df_list.append(pd.read_csv(filename))
+    
+    # combine dataframes
+    df = pd.concat(df_list) 
+    return df
+
+def read_single(ticker):
+    
+    filename = DATAP / f'ticker_{ticker}.csv'
+    print('reading %s'%filename)
+    df = pd.read_csv(filename,index_col=0)
+    return df
+    
 
 
 def atr(df,period,drift=1):
@@ -79,28 +119,6 @@ def supertrend(df,period=5,multiplier=2.3,drift=1):
         dfs.append(data)
     return dfst
     
-def get_ticker(symbol):
-    
-    print(">>", symbol, end=' ... ')
-    try:
-        ticker = yf.Ticker(symbol)    
-    
-    # always should have info and history for valid symbols
-        assert(ticker.info is not None and ticker.info != {})
-        assert(ticker.history(period="max").empty is False)
-
-        # following should always gracefully handled, no crashes
-        ticker.cashflow
-        ticker.balance_sheet
-        ticker.financials
-        ticker.sustainability
-        ticker.major_holders
-        ticker.institutional_holders
-
-        print("OK")
-    except:
-        print('Problem')
-    return  ticker
 
 
 def longshort_periods(df,keycol='tr'):
@@ -328,7 +346,7 @@ if __name__=='__main__':
     dfl = pd.read_csv(listname,index_col=0)
     symbol = dfl.symbol.iloc[4]
     print(symbol)
-    df = mng_data.read_data(listname)
+    df = read_data(listname)
     sharename=dfl['name'].loc[dfl.symbol==symbol].values[0]
     history = df[df['ticker']==symbol].copy()
     history.set_index('Date',inplace=True)
