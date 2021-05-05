@@ -62,7 +62,8 @@ def atr(df,period,drift=1):
     df['thigh']= df['High'].where(df['High']>df['pclose'],df['pclose'])
     df['tlow']= df['Low'].where(df['Low']<df['pclose'],df['pclose'])
     
-    df['atr'] = df['thigh']-df['tlow']
+    y = df['thigh']-df['tlow']
+    df['atr'] = y.rolling(period,center=False).mean()
     df['tmid'] = (df['thigh']+df['tlow'])*0.5
     #df['tmid'] = (df['High']+df['Low'])*0.5
     #df['atr']=ta.atr(df.High,df.Low,df.Close,length=period).copy()
@@ -366,7 +367,7 @@ if __name__=='__main__':
 #         history.to_csv(filename)
 #         sharename = ticker.info['shortName']
 # =============================================================================
-    fig = plot_share(sharename,history,today)
+    fig = plot_share(sharename,history,tildate=today)
     fig.show()
     
     
