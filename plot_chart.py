@@ -192,7 +192,7 @@ def SetColor(x):
         return "red"
     
 
-def plot_share(share_name,data,tildate=None,volatility=0,log=False):
+def plot_share(share_name,data,period=5,multiplier=2.3,tildate=None,volatility=0,log=False):
     '''
     
 
@@ -224,7 +224,7 @@ def plot_share(share_name,data,tildate=None,volatility=0,log=False):
     data_avg=y.rolling(avg,center=False).mean()
     
     #sb = supertrend_bands(data)
-    st = supertrend(data)
+    st = supertrend(data,period=period,multiplier=multiplier)
     
     # volatility: 
     #https://stackoverflow.com/questions/43284304/how-to-compute-volatility-standard-deviation-in-rolling-window-in-pandas
