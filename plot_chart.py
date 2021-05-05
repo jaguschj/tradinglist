@@ -135,7 +135,8 @@ def longshort_periods(df,keycol='tr'):
 
 def traces_long_short(dfs):
     # add traces with periods of long/short
-    traces=[go.Scatter(x=None, y = None,
+    last_set = dfs[-1].iloc[-2:-1]
+    traces=[go.Scatter(x=last_set.index, y = last_set.Close,
                               line = dict(color='rgba(0,0,0,0)'),
                               name = 'trend',
                               legendgroup='trend',
@@ -178,6 +179,62 @@ def traces_long_short(dfs):
                               fill='tonexty', 
                               fillcolor = color,
                               legendgroup='trend',                              
+                              showlegend=False)
+                       )
+    return traces
+
+def traces_profit(dfs):
+    # add traces with periods of long/short
+    last_set = dfs[-1].iloc[-2:-1]
+    traces=[go.Scatter(x=last_set.index, y = last_set.Close,
+                              line = dict(color='rgba(0,0,0,0)'),
+                              name = 'profit',
+                              legendgroup='profit',
+                              showlegend=True)
+                      ]
+    xix = [0,-1,-1]
+    yix = [0,0,-1]
+
+    for df in dfs:
+        profitloss = df.Close.iloc[-1]-df.Open.iloc[0]
+        
+        
+        x = df.iloc[xix].index
+        y = df.iloc[yix].Close
+        traces.append(go.Scatter(x=df.index, y = df.Close,
+                              line = dict(color='rgba(0,0,0,0)'),
+                              name = 'close',
+                              legendgroup='profit',
+                              showlegend=False)
+                      )
+        if df.tr.iloc[0]>0: # long
+            if profitloss>0:
+                color = 'rgba(0.,0.99,0,0.2)'
+                width = 0
+            else:
+                color = 'rgba(0.,0.2,0.7,0.2)'
+                width = 4
+            traces.append(go.Scatter(x=x, y = y,
+                              line = dict(color=color,width=width),
+                              name = 'up',
+                              fill='tonexty', 
+                              fillcolor = color,
+                              legendgroup='profit',
+                              showlegend=False)
+                          )
+        else:  # short
+            if profitloss<0:
+                color = 'rgba(0.99,0.0,0,0.2)'
+                width = 0
+            else:
+                color = 'rgba(0.5,0.,0.5,0.2)'
+                width = 4
+            traces.append(go.Scatter(x=x, y = y,
+                              line = dict(color=color,width=width),
+                              name='down',
+                              fill='tonexty', 
+                              fillcolor = color,
+                              legendgroup='profit',                              
                               showlegend=False)
                        )
     return traces
@@ -253,34 +310,10 @@ def plot_share(share_name,data,period=5,multiplier=2.3,tildate=None,volatility=0
     straces = traces_long_short(dfs)
     for trace in straces:
         fig.add_trace(trace,row=1,col=1,secondary_y=True)
-    # fig.add_trace(go.Scatter(x=st.index, y=st.supertrend,
-    #                      name='super trend',
-    #                      #line = dict(color=list(map(SetColor, st.tr)))
-    #                      line_color='green',
-    #                      ), 
-    #               row=1,col=1,
-    #            secondary_y=True)
-    
-    # fig.add_trace(go.Scatter(x=data.index, y=data['Close'],
-    #                      name='Close',
-    #                      fill='tonexty',
-    #                      fillcolor='rgba(0,250,0,0.4)'
-    #                      #fillcolor=st.tr
-    #                      ),
-    #               row=1,col=1,
-    #            secondary_y=True)
-#    fig.add_trace(go.Scatter(x=st.index, y=st.spt_u,
-#                         name='super trend',
-#                         #line = dict(color=list(map(SetColor, st.tr)))
-#                         line_color='red',
-#                         #fill='tonexty'
-#                         ), 
-#                  row=1,col=1,
-#               secondary_y=True)
-    #fig.add_trace(go.Scatter(x=st.index, y=st.fl,
-    #                     name='lower band'),
-    #              row=1,col=1,
-    #           secondary_y=True)
+    ptraces = traces_profit(dfs)
+    for trace in ptraces:
+        fig.add_trace(trace,row=1,col=1,secondary_y=True)
+        
 
     # include a go.Bar trace for volumes
     fig.add_trace(go.Bar(x=data.index, y=data['Volume'],
@@ -297,12 +330,6 @@ def plot_share(share_name,data,period=5,multiplier=2.3,tildate=None,volatility=0
                       ),
                   row=2,col=1,
                   )
-# =============================================================================
-#     fig.add_trace(go.Scatter(x=st.index, 
-#                     y=st.tr,
-#                     name='Trend'),
-#                   row=2,col=1,
-#                   )
 # =============================================================================
     fig.layout.yaxis.range=[data.Volume.min(),data.Volume.max()*2]#,row=1,col=1
     fig.layout.yaxis2.showgrid=False
@@ -335,7 +362,7 @@ def plot_share(share_name,data,period=5,multiplier=2.3,tildate=None,volatility=0
     
     fig.update_xaxes(showgrid=True)
     platform=os.getenv('app_env','productive')
-    if platform !='productive':
+    if platform !='productive_':
         fig.write_html('%s.html'%(share_name))
     #fig.show()
     return fig
