@@ -332,7 +332,9 @@ def plot_share(share_name,data,tildate=None,volatility=0,log=False):
     height=1200)
     
     fig.update_xaxes(showgrid=True)
-    fig.write_html('%s.html'%(share_name))
+    platform=os.getenv('app_env','productive')
+    if platform !='productive':
+        fig.write_html('%s.html'%(share_name))
     #fig.show()
     return fig
 
