@@ -42,17 +42,19 @@ platform=os.getenv('app_env','productive')
 if platform == 'productive':
     srcfolder = '/home/jens/src/tradinglist'
     site.addsitedir(srcfolder)
+    plotfolder = os.path.join(srcfolder,'plots')
+    listfolder = srcfolder
 
 else:
     (srcfolder,selffile)=os.path.split(os.path.abspath(__file__))
-    
+    plotfolder = os.path.join(srcfolder,'plots')
+    listfolder = plotfolder
+
     
 import plot_chart
 #import mng_data
 
     
-plotfolder = os.path.join(srcfolder,'plots')
-listfolder = plotfolder
 datafolder = os.path.join(srcfolder,'data')
 print('working  %s'%platform)
 print('working in %s'%listfolder)
@@ -562,7 +564,7 @@ except:
     
 if __name__=='__main__':
     
-    app.run_server(debug=True,port=8051)
+    app.run_server(debug=True)#,port=8051)
 else:
     server = app.server
     
