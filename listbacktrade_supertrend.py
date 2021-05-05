@@ -67,26 +67,26 @@ def run_st(symb='DTE.DE',period=7,multiplier=3.5,backyears=2):
   cerebro = bt.Cerebro()
   cerebro.addstrategy(SuperTrendStrategy,period=period, multiplier=multiplier)
 
-  #data0 = bt.feeds.YahooFinanceData(dataname=symb, fromdate=fromdate,
-  #                                  todate=today)
+  data0 = bt.feeds.YahooFinanceData(dataname=symb, fromdate=fromdate,
+                                    todate=today)
  
-  data0 = bt.feeds.GenericCSVData(
-    dataname=os.path.join(datadir,'ticker_%s.csv'%symb),
+#   data0 = bt.feeds.GenericCSVData(
+#     dataname=os.path.join(datadir,'ticker_%s.csv'%symb),
 
-    fromdate=fromdate,
-    todate=today,
-    nullvalue=0.0,
+#     fromdate=fromdate,
+#     todate=today,
+#     nullvalue=0.0,
 
-    dtformat=('%Y-%m-%d'),
+#     dtformat=('%Y-%m-%d'),
 
-    datetime=0,
-    high=2,
-    low=3,
-    open=1,
-    close=4,
-    volume=6,
-    openinterest=-1
-)
+#     datetime=0,
+#     high=2,
+#     low=3,
+#     open=1,
+#     close=4,
+#     volume=6,
+#     openinterest=-1
+# )
   
   cerebro.adddata(data0)
   cerebro.broker.setcash(100000.0)
