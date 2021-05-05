@@ -48,7 +48,7 @@ else:
     
     
 import plot_chart
-import mng_data
+#import mng_data
 
     
 plotfolder = os.path.join(srcfolder,'plots')
