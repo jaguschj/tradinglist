@@ -323,10 +323,11 @@ def plot_share(share_name,data,period=5,multiplier=2.3,tildate=None,volatility=0
     lastdate = data.index[-1]
     volatility = y_vola[lastdate]*100
     #lastdate = ' 30.04.21' #data.index.iloc[-1].str
-    tabs = '\t'*5
+    tabs = '\t'*4
     title = '%s'%lastdate
     title += tabs+'Price %.2f'%data.Close.iloc[-1]
     title += tabs + 'Volatility %.2f'%volatility
+    title += tabs + 'period,factor (%d, %.1f)'%(period,multiplier)
     title += tabs + '%s'%share_name
     fig.update_layout(title=title,
     #,width=1500,
