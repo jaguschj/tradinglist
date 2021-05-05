@@ -8,7 +8,7 @@ import os
 import fnmatch
 import pandas as pd
 
-import pandas_ta as ta
+#import pandas_ta as ta
 #import json
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -18,16 +18,23 @@ import mng_data
 
 
 def atr(df,period,drift=1):
-    df['atr']=ta.atr(df.High,df.Low,df.Close,length=period).copy()
+    df['pclose']=df.Close.shift(1)
+    df['thigh']= df['High'].where(df['High']>df['pclose'],df['pclose'])
+    df['tlow']= df['Low'].where(df['Low']<df['pclose'],df['pclose'])
+    
+    df['atr'] = df['thigh']-df['tlow']
+    df['tmid'] = (df['thigh']+df['tlow'])*0.5
+    #df['tmid'] = (df['High']+df['Low'])*0.5
+    #df['atr']=ta.atr(df.High,df.Low,df.Close,length=period).copy()
     #df.apply(lambda x: ta.atr(x.High,x.Low,x.Close,length=period))
     return df
 
 def supertrend_bands(df,period=5,multiplier=2.2,drift=1):
     df = atr(df,period,drift)
     delta = df.atr*multiplier
-    df['mid'] = (df.High+df.Low)*0.5
-    df['bu']= df.mid+delta
-    df['bl']= df.mid-delta
+    #df['mid'] = (df.High+df.Low)*0.5
+    df['bu']= df.tmid+delta
+    df['bl']= df.tmid-delta
     return df
 
 def spt_(df):
@@ -307,7 +314,7 @@ def plot_share(share_name,data,tildate=None,volatility=0,log=False):
     height=1200)
     
     fig.update_xaxes(showgrid=True)
-    #fig.write_html('%s.html'%(share_name))
+    fig.write_html('%s.html'%(share_name))
     #fig.show()
     return fig
 
@@ -319,7 +326,8 @@ if __name__=='__main__':
     
     listname = 'extra.csv'
     dfl = pd.read_csv(listname,index_col=0)
-    symbol = dfl.symbol.iloc[0]
+    symbol = dfl.symbol.iloc[4]
+    print(symbol)
     df = mng_data.read_data(listname)
     sharename=dfl['name'].loc[dfl.symbol==symbol].values[0]
     history = df[df['ticker']==symbol].copy()
