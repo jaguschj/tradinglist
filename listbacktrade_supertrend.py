@@ -49,6 +49,7 @@ pd.set_option('display.max_rows', 100)
 rundir = os.getcwd()
 rundir,sourcefile=os.path.split(__file__)
 DIR=os.path.join(rundir,'plots')
+datadir= os.path.join(rundir,'data')
 if not os.path.exists(DIR):
     os.mkdir(DIR) 
 print('Saving Data to %s'%DIR)    
@@ -66,8 +67,27 @@ def run_st(symb='DTE.DE',period=7,multiplier=3.5,backyears=2):
   cerebro = bt.Cerebro()
   cerebro.addstrategy(SuperTrendStrategy,period=period, multiplier=multiplier)
 
-  data0 = bt.feeds.YahooFinanceData(dataname=symb, fromdate=fromdate,
-                                    todate=today)
+  #data0 = bt.feeds.YahooFinanceData(dataname=symb, fromdate=fromdate,
+  #                                  todate=today)
+ 
+  data0 = bt.feeds.GenericCSVData(
+    dataname=os.path.join(datadir,'ticker_%s.csv'%symb),
+
+    fromdate=fromdate,
+    todate=today,
+    nullvalue=0.0,
+
+    dtformat=('%Y-%m-%d'),
+
+    datetime=0,
+    high=2,
+    low=3,
+    open=1,
+    close=4,
+    volume=6,
+    openinterest=-1
+)
+  
   cerebro.adddata(data0)
   cerebro.broker.setcash(100000.0)
 
