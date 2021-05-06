@@ -42,7 +42,7 @@ def read_data(listname):
     #files = list(DATAP.glob('ticker_*.csv'))
     
     #for file in files:
-        df_list.append(pd.read_csv(filename))
+        df_list.append(pd.read_csv(filename,index_col=0,parse_dates=True))
     
     # combine dataframes
     df = pd.concat(df_list) 
@@ -52,7 +52,7 @@ def read_single(ticker):
     
     filename = DATAP / f'ticker_{ticker}.csv'
     print('reading %s'%filename)
-    df = pd.read_csv(filename,index_col=0)
+    df = pd.read_csv(filename,index_col=0,parse_dates=True)
     return df
     
 
@@ -189,17 +189,13 @@ def traces_long_short(dfs):
     return traces
 
 def traces_profit(dfs):
+    traces=[]
     # add traces with periods of long/short
-    last_set = dfs[-1].iloc[-2:-1]
-    traces=[go.Scatter(x=last_set.index, y = last_set.Close,
-                              line = dict(color='rgba(0,0,0,0)'),
-                              name = 'profit',
-                              legendgroup='profit',
-                              showlegend=True)
-                      ]
     xix = [0,-1,-1]
     yix = [0,0,-1]
-
+    
+    plong=0
+    pshort=0
     for df in dfs:
         profitloss = df.Close.iloc[-1]-df.Open.iloc[0]
         
@@ -213,6 +209,7 @@ def traces_profit(dfs):
                               showlegend=False)
                       )
         if df.tr.iloc[0]>0: # long
+            plong+=profitloss
             if profitloss>0:
                 color = 'rgba(0.,0.99,0,0.2)'
                 width = 0
@@ -228,6 +225,7 @@ def traces_profit(dfs):
                               showlegend=False)
                           )
         else:  # short
+            pshort+=profitloss
             if profitloss<0:
                 color = 'rgba(0.99,0.0,0,0.2)'
                 width = 0
@@ -242,7 +240,23 @@ def traces_profit(dfs):
                               legendgroup='profit',                              
                               showlegend=False)
                        )
-    return traces
+    first_set = dfs[1].iloc[:1]
+    last_set = dfs[-1].iloc[-2:-1]
+    initialvalue = first_set.iloc[0].Close
+    finalvalue = last_set.iloc[-1].Close
+    #holdvalue = abs(finalvalue-initialvalue)
+    holdtime = (last_set.index-first_set.index).days[0]/365
+    hold_rent = ((finalvalue/initialvalue)**(1/holdtime)-1)*100
+    long_rent = ((plong/initialvalue+1)**(1/holdtime)-1)*100
+    short_rent = ((-pshort/initialvalue+1)**(1/holdtime)-1)*100
+    traces.append(go.Scatter(x=last_set.index, y = last_set.Close,
+                              line = dict(color='rgba(0,0,0,0)'),
+                              name = 'profit',
+                              legendgroup='profit',
+                              showlegend=True)
+                      )
+            
+    return traces,(hold_rent,long_rent,short_rent)
     
     
 
@@ -315,7 +329,7 @@ def plot_share(share_name,data,period=5,multiplier=2.3,tildate=None,volatility=0
     straces = traces_long_short(dfs)
     for trace in straces:
         fig.add_trace(trace,row=1,col=1,secondary_y=True)
-    ptraces = traces_profit(dfs)
+    ptraces,(hrent,lrent,srent) = traces_profit(dfs)
     for trace in ptraces:
         fig.add_trace(trace,row=1,col=1,secondary_y=True)
         
@@ -355,11 +369,12 @@ def plot_share(share_name,data,period=5,multiplier=2.3,tildate=None,volatility=0
     lastdate = data.index[-1]
     volatility = y_vola[lastdate]*100
     #lastdate = ' 30.04.21' #data.index.iloc[-1].str
-    tabs = '\t'*4
-    title = '%s'%lastdate
+    tabs = '\t'*2
+    title =  lastdate.strftime('%d.%m.%y')
     title += tabs+'Price %.2f'%data.Close.iloc[-1]
     title += tabs + 'Volatility %.2f'%volatility
     title += tabs + 'period,factor (%d, %.1f)'%(period,multiplier)
+    title += '\trent %% p.a. (hold: %.1f, long: %.1f, short: %.1f)'%(hrent,lrent,srent)
     title += tabs + '%s'%share_name
     fig.update_layout(title=title,
     #,width=1500,
@@ -385,7 +400,7 @@ if __name__=='__main__':
     df = read_data(listname)
     sharename=dfl['name'].loc[dfl.symbol==symbol].values[0]
     history = df[df['ticker']==symbol].copy()
-    history.set_index('Date',inplace=True)
+    #history.set_index('Date',inplace=True)
 # =============================================================================
 # 
 #     if os.path.exists(filename):
