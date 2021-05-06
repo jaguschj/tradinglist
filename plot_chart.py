@@ -140,7 +140,9 @@ def traces_long_short(dfs):
                               line = dict(color='rgba(0,0,0,0)'),
                               name = 'trend',
                               legendgroup='trend',
-                              showlegend=True)
+                              showlegend=True,
+                              visible='legendonly',
+                              )
                       ]
     for df in dfs:
         profitloss = df.Close.iloc[-1]-df.Open.iloc[0]
@@ -149,6 +151,7 @@ def traces_long_short(dfs):
                               line = dict(color='rgba(0,0,0,0)'),
                               name = 'close',
                               legendgroup='trend',
+                              visible='legendonly',                              
                               showlegend=False)
                       )
         if df.tr.iloc[0]>0: # long
@@ -163,6 +166,7 @@ def traces_long_short(dfs):
                               name = 'up',
                               fill='tonexty', 
                               fillcolor = color,
+                              visible='legendonly',
                               legendgroup='trend',
                               showlegend=False)
                           )
@@ -178,6 +182,7 @@ def traces_long_short(dfs):
                               name='down',
                               fill='tonexty', 
                               fillcolor = color,
+                              visible='legendonly',
                               legendgroup='trend',                              
                               showlegend=False)
                        )
