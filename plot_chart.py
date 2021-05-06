@@ -309,7 +309,7 @@ def plot_share(share_name,data,period=5,multiplier=2.3,tildate=None,volatility=0
     
     
     fig = make_subplots(rows=2,cols=1,
-                        subplot_titles=['Chart','Volatility'],
+                        subplot_titles=[share_name,'Volatility'],
                         row_heights=[0.8,0.2],
                         shared_xaxes=True,
                         specs=[[{"secondary_y": True}],[{"secondary_y": False}]]
@@ -375,7 +375,7 @@ def plot_share(share_name,data,period=5,multiplier=2.3,tildate=None,volatility=0
     title += tabs + 'Volatility %.2f'%volatility
     title += tabs + 'period,factor (%d, %.1f)'%(period,multiplier)
     title += '\trent %% p.a. (hold: %.1f, long: %.1f, short: %.1f)'%(hrent,lrent,srent)
-    title += tabs + '%s'%share_name
+    #title += tabs + '%s'%share_name
     fig.update_layout(title=title,
     #,width=1500,
     height=1200)
