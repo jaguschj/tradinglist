@@ -243,12 +243,16 @@ def traces_profit(dfs):
     first_set = dfs[1].iloc[:1]
     last_set = dfs[-1].iloc[-2:-1]
     initialvalue = first_set.iloc[0].Close
+    finalvalue = last_set.iloc[-1].Close
     try:
-        finalvalue = last_set.iloc[-1].Close
+        holdtime = (last_set.index-first_set.index).days[0]/365
     except:
-        finalvalue = dfs[-1].iloc[-1].Close
+        print(first_set)
+        print(last_set)
+        holdtime = 4
+
     #holdvalue = abs(finalvalue-initialvalue)
-    holdtime = (last_set.index-first_set.index).days[0]/365
+
     hold_rent = ((finalvalue/initialvalue)**(1/holdtime)-1)*100
     long_rent = ((plong/initialvalue+1)**(1/holdtime)-1)*100
     short_rent = ((-pshort/initialvalue+1)**(1/holdtime)-1)*100
@@ -393,16 +397,17 @@ def plot_share(share_name,data,period=5,multiplier=2.3,tildate=None,volatility=0
 
 if __name__=='__main__':
     today=datetime.today()
-    symbol='CBK.DE'
+    symbol='BAS.DE'
     #filename = symbol+'x.csv'
     
-    listname = 'extra.csv'
+    listname = 'Dax.csv'
     dfl = pd.read_csv(listname,index_col=0)
-    symbol = dfl.symbol.iloc[4]
+    #symbol = dfl.symbol.iloc[4]
     print(symbol)
     df = read_data(listname)
     sharename=dfl['name'].loc[dfl.symbol==symbol].values[0]
     history = df[df['ticker']==symbol].copy()
+    
     #history.set_index('Date',inplace=True)
 # =============================================================================
 # 
@@ -418,6 +423,7 @@ if __name__=='__main__':
 #         history.to_csv(filename)
 #         sharename = ticker.info['shortName']
 # =============================================================================
+    history = read_single(symbol)
     fig = plot_share(sharename,history,tildate=today)
     fig.show()
     
