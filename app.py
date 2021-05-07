@@ -257,20 +257,20 @@ def parse_table(filename):
             'if': {'row_index': 'odd'},
             'backgroundColor': 'rgb(248, 248, 248)'
         },
-        {   'if': {'filter_query': '{sell} = 1.0'},
-            'backgroundColor': 'orangered',
-            'color': 'white'
-            },
-        {   'if': {'filter_query': '{buy} = 1.0'},
-            'backgroundColor': 'lime',
-            'color': 'black'
-            },
         {   'if': {'filter_query': '{d2i} < 0.05 and {close} > {indicator}'},
             'backgroundColor': 'mistyrose',
             'color': 'black'
             },
         {   'if': {'filter_query': '{d2i} < 0.05 and {close} < {indicator}'},
             'backgroundColor': 'lightcyan',
+            'color': 'black'
+            },
+        {   'if': {'filter_query': '{sell} = 1.0'},
+            'backgroundColor': 'orangered',
+            'color': 'white'
+            },
+        {   'if': {'filter_query': '{buy} = 1.0'},
+            'backgroundColor': 'lime',
             'color': 'black'
             },
         ]
