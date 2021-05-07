@@ -325,7 +325,7 @@ def create_chart(symbol,sharename,period=3,multiplier=2.5):
     #sharename = ticker.info['shortName']
     print ('got %s'%sharename)
 
-    return plot_chart.plot_share(sharename, history,period=period,
+    return plot_chart.plot_share(symbol, history,period=period,
                                  multiplier=multiplier)
     
 
