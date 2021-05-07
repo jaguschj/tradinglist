@@ -249,6 +249,7 @@ def traces_profit(dfs):
     except:
         print(first_set)
         print(last_set)
+        finalvalue = dfs[-2].iloc[-1].Close
         holdtime = 4.
 
     #holdvalue = abs(finalvalue-initialvalue)
