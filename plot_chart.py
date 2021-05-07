@@ -136,6 +136,8 @@ def longshort_periods(df,keycol='tr'):
 def traces_long_short(dfs):
     # add traces with periods of long/short
     last_set = dfs[-1].iloc[-2:-1]
+    if len(last_set)==0:
+        last_set = dfs[-2].iloc[-2:-1]
     traces=[go.Scatter(x=last_set.index, y = last_set.Close,
                               line = dict(color='rgba(0,0,0,0)'),
                               name = 'trend',
@@ -243,6 +245,7 @@ def traces_profit(dfs):
     first_set = dfs[1].iloc[:1]
     last_set = dfs[-1].iloc[-2:-1]
     if len(last_set)==0:
+        print(len(dfs))
         last_set = dfs[-2].iloc[-2:-1]
     initialvalue = first_set.iloc[0].Close
     finalvalue = last_set.iloc[-1].Close
