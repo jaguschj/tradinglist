@@ -242,14 +242,15 @@ def traces_profit(dfs):
                        )
     first_set = dfs[1].iloc[:1]
     last_set = dfs[-1].iloc[-2:-1]
+    if len(last_set)==0:
+        last_set = dfs[-2].iloc[-2:-1]
     initialvalue = first_set.iloc[0].Close
+    finalvalue = last_set.iloc[-1].Close
     try:
-        finalvalue = last_set.iloc[-1].Close
         holdtime = (last_set.index-first_set.index).days[0]/365
     except:
         print(first_set)
         print(last_set)
-        finalvalue = dfs[-2].iloc[-1].Close
         holdtime = 4.
 
     #holdvalue = abs(finalvalue-initialvalue)
