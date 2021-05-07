@@ -243,7 +243,10 @@ def traces_profit(dfs):
     first_set = dfs[1].iloc[:1]
     last_set = dfs[-1].iloc[-2:-1]
     initialvalue = first_set.iloc[0].Close
-    finalvalue = last_set.iloc[-1].Close
+    try:
+        finalvalue = last_set.iloc[-1].Close
+    except:
+        finalvalue = dfs[-1].iloc[-1].Close
     #holdvalue = abs(finalvalue-initialvalue)
     holdtime = (last_set.index-first_set.index).days[0]/365
     hold_rent = ((finalvalue/initialvalue)**(1/holdtime)-1)*100
