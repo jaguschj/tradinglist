@@ -158,6 +158,8 @@ def set_color(buy,sell,dist2ind,indicator,close):
             return 'mistyrose'
     return 'wheat'
 
+
+
 def plot_table(filename):
     #folder = 'plots'
     df = pd.read_csv(filename,index_col=0)
@@ -168,6 +170,8 @@ def plot_table(filename):
                    'asset':1,'indicator':2,'close':2,'d2i':3})
     #dfr.Chart = dfr.Chart.map(lambda x: '[%s](<http://localhost:8000/%s>)'%(x,x))
     dfr['color']=dfr.apply(lambda x: set_color(x.buy,x.sell,x.d2i,x.indicator,x.close),axis=1)
+    dfr['colorv']=-(dfr.indicator-dfr.close)/dfr.close
+    dfr['colorl']=dfr.buy-dfr.sell
     dfr = dfr.iloc[::-1]
 
     layout = go.Layout(
@@ -177,7 +181,18 @@ def plot_table(filename):
 
     fig = go.Figure(data=[go.Bar(y=dfr.Company,
                                  x=dfr.Return,
-                                 marker=dict(color=dfr.color),
+                                 #marker=dict(color=dfr.color),
+                                 marker = dict(color=dfr.colorv,
+                                               colorscale='RdBu',
+                                               cmax=0.1,
+                                               cmid=0,
+                                               cmin=-0.1,
+                                               line=dict(
+                                                   color=dfr.colorl,
+                                                   colorscale=[[0,'rgb(248,0,0)'],[1,'rgb(0,248,0)']],
+                                                   width=2,
+                                                   )
+                                               ),
                                  text = dfr.Company,
                                  hovertemplate=
                                         "<b>%{text}</b><br><br>" +
@@ -185,10 +200,10 @@ def plot_table(filename):
                                         "Sharpe: %{customdata[1]:.3f}<br>" +
                                         "Return: %{x:.3f}<br>" +
                                         "ind: %{customdata[2]:.2f}<br>" +
-                                        "d2i: %{customdata[4]}<br>" +
+                                        "colorv: %{customdata[4]}<br>" +
                                         "close: %{customdata[3]:.2f}<br>" +
                                         "<extra>Drawdown: %{customdata[5]}</extra>",
-                                 customdata=dfr[['Symbol','Sharperatio','indicator','close','d2i','Drawdown']], # hover text goes here))))
+                                 customdata=dfr[['Symbol','Sharperatio','indicator','close','colorv','Drawdown']], # hover text goes here))))
                                  #name = 'returns'
                                  orientation='h'
                                  )],
@@ -257,11 +272,11 @@ def parse_table(filename):
             'if': {'row_index': 'odd'},
             'backgroundColor': 'rgb(248, 248, 248)'
         },
-        {   'if': {'filter_query': '{d2i} < 0.05 and {close} > {indicator}'},
+        {   'if': {'filter_query': '{close} < {indicator}'},
             'backgroundColor': 'mistyrose',
             'color': 'black'
             },
-        {   'if': {'filter_query': '{d2i} < 0.05 and {close} < {indicator}'},
+        {   'if': {'filter_query': '{close} > {indicator}'},
             'backgroundColor': 'lightcyan',
             'color': 'black'
             },
