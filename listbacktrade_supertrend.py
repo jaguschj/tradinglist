@@ -246,7 +246,7 @@ def list2HTML(filename):
 
     
 def opt_symbol(symbol='DPW.DE',
-               fromdate=datetime.today()-timedelta(days=500),
+               fromdate=datetime.today()-timedelta(days=5000),
                todate=datetime.today()):
     # Create a cerebro entity
     cerebro = bt.Cerebro()
