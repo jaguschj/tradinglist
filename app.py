@@ -170,7 +170,7 @@ def plot_table(filename):
                    'asset':1,'indicator':2,'close':2,'d2i':3})
     #dfr.Chart = dfr.Chart.map(lambda x: '[%s](<http://localhost:8000/%s>)'%(x,x))
     dfr['color']=dfr.apply(lambda x: set_color(x.buy,x.sell,x.d2i,x.indicator,x.close),axis=1)
-    dfr['colorv']=-(dfr.indicator-dfr.close)/dfr.close
+    dfr['colorv']=(dfr.close-dfr.indicator)/dfr.close
     dfr['colorl']=dfr.buy-dfr.sell
     dfr = dfr.iloc[::-1]
 
@@ -190,6 +190,9 @@ def plot_table(filename):
                                                line=dict(
                                                    color=dfr.colorl,
                                                    colorscale=[[0,'rgb(248,0,0)'],[1,'rgb(0,248,0)']],
+                                                   cmin=-1,
+                                                   cmid=0,
+                                                   cmax=1,
                                                    width=2,
                                                    )
                                                ),
@@ -200,10 +203,10 @@ def plot_table(filename):
                                         "Sharpe: %{customdata[1]:.3f}<br>" +
                                         "Return: %{x:.3f}<br>" +
                                         "ind: %{customdata[2]:.2f}<br>" +
-                                        "colorl: %{customdata[4]}<br>" +
+                                        "colorv: %{customdata[4]:.3f}<br>" +
                                         "close: %{customdata[3]:.2f}<br>" +
                                         "<extra>Drawdown: %{customdata[5]}</extra>",
-                                 customdata=dfr[['Symbol','Sharperatio','indicator','close','colorl','Drawdown']], # hover text goes here))))
+                                 customdata=dfr[['Symbol','Sharperatio','indicator','close','colorv','Drawdown']], # hover text goes here))))
                                  #name = 'returns'
                                  orientation='h'
                                  )],
