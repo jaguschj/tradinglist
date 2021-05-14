@@ -1,0 +1,31 @@
+,name,symbol,period,multiplier
+0,3M,MMM,12,3
+1,American Express,AXP,12,3
+2,Amgen,AMGN,12,3
+3,Apple,AAPL,12,3
+4,Boeing,BA,12,3
+5,Caterpillar,CAT,12,3
+6,Chrevon,CVX,12,3
+7,Cisco,CSCO,12,3
+8,Coca-Cola,KO,12,3
+9,Disney,DIS,12,3
+10,Dow,DOW,12,3
+11,Goldman Sachs,GS,12,3
+12,Home Depot,HD,12,3
+13,Honeywell,HON,12,3
+14,IBM,IBM,12,3
+15,Intel,INTC,12,3
+16,Johnson & Johnson,JNJ,12,3
+17,JPMorgan Chase,JPM,12,3
+18,McDonalds,MCD,12,3
+19,Merck,MRK,12,3
+20,Microsoft,MSFT,12,3
+21,Nike,NKE,12,3
+22,Proctor & Gamble,PG,12,3
+23,salesforce.com,CRM,12,3
+24,Travelers,TRV,12,3
+25,Unitedhealth Group,UNH,12,3
+26,Verizon,VZ,12,3
+27,Visa,V,12,3
+28,Walgreens Boots Alliance,WBA,12,3
+29,Walmart,WMT,12,3
