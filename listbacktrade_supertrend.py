@@ -191,6 +191,7 @@ def run(symbolsfile):
     #df_sort.style.format({'url': make_clickable})
     collect={'Liste_jj.csv':0,
              'extra.csv':0,
+             'dowjones.csv':0,
              'nasdaq.csv':0,'nyse.csv':0,'Dax.csv':0}
     #collect={'nasdaq.csv':0,'nyse.csv':0}
     assert symbolsfilebase in collect.keys()
