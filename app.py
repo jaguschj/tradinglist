@@ -207,10 +207,12 @@ def plot_table(filename):
                                         "close: %{customdata[3]:.2f}<br>" +
                                         "<extra>Drawdown: %{customdata[5]}</extra>",
                                  customdata=dfr[['Symbol','Sharperatio','indicator','close','colorv','Drawdown']], # hover text goes here))))
+                                 #hoverlabel_bordercolor=dfr.colorl,
                                  #name = 'returns'
                                  orientation='h'
                                  )],
                         layout=layout)
+    #fig.update_traces(hoverlabel=dict(bordercolor='red'),hoverlabel_font=dict(color='wheat'))
     #return html.Div([dcc.Graph(id='basic-interactions',figure=fig)])
     return html.Div(children=[html.Div(dcc.Graph(id='basic-interactions',figure=fig),
                               className='three columns'),
