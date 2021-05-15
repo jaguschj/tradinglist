@@ -1,16 +1,16 @@
 ,name,symbol,period,multiplier
-5,Beiersdorf,BEI.DE,17,1.5
-7,Commerzbank,CBK.DE,17,1.9
-18,DT.LUFTHANSA,LHA.DE,5,2.7
-20,#MAN,MAN.DE,3,2.3
-21,Metro,B4B.DE,5,5.1
+5,Beiersdorf,BEI.DE,13,5.5
+7,Commerzbank,CBK.DE,3,3.1
+18,DT.LUFTHANSA,LHA.DE,19,2.7
+20,#MAN,MAN.DE,7,4.7
+21,Metro,B4B.DE,7,5.5
 26,K u S AG,SDF.DE,7,1.5
-28,Salzgitter,SZG.DE,15,4.3
-29,THYSSENKRUPP,TKA.DE,9,2.3
-31,VOLKSWAGEN AG,VOW.DE,19,3.1
-32,GEA,G1A.DE,19,2.7
-33,Royal Dutch,R6C.DE,15,4.3
-35,BHP Billiton,BIL.DE,13,3.9
-37,Total SE,Totb.de,9,3.1
-38,Hann. Rueck,hnr1.de,19,1.5
-39,Ceconomy AG,CEC.DE,3,5.5
+28,Salzgitter,SZG.DE,5,4.3
+29,THYSSENKRUPP,TKA.DE,3,2.3
+31,VOLKSWAGEN AG,VOW.DE,3,1.5
+32,GEA,G1A.DE,13,4.3
+33,Royal Dutch,R6C.DE,5,4.7
+35,BHP Billiton,BIL.DE,13,5.5
+37,Total SE,Totb.de,9,2.3
+38,Hann. Rueck,hnr1.de,19,5.5
+39,Ceconomy AG,CEC.DE,17,4.3
