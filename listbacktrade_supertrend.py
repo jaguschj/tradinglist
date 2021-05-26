@@ -63,7 +63,8 @@ def run_st(symb='DTE.DE',period=7,multiplier=3.5,backyears=2):
   #period = int(dbset['period']+0.5)
   #multiplier = dbset['multiplier']
   today=datetime.today()
-  fromdate = today - timedelta(days=int(backyears*252))
+  #fromdate = today - timedelta(days=int(backyears*252))
+  fromdate = today - timedelta(days=int(backyears*365))
   cerebro = bt.Cerebro()
   cerebro.addstrategy(SuperTrendStrategy,period=period, multiplier=multiplier)
 
