@@ -2,8 +2,8 @@
 0,Air Liquide S.A ,AI.F,7,3.5
 1,Allianz SE ,ALV.DE,7,3.5
 2,Anheuser-Busch In Bev SA/NV ,ABI.BR,7,3.5
-3,ArcelorMittal ,MT.AMS,7,3.5
-4,ASML Holding NV ,ASML.AMS,7,3.5
+3,ArcelorMittal ,MT.AS,7,3.5
+4,ASML Holding NV ,ASML.AS,7,3.5
 5,Assicurazioni Generali SPA ,G.MI,7,3.5
 6,Axa ,CS.F,7,3.5
 7,Banco Bilbao Vizcaya Argentaria. ,BBVA.MC,7,3.5
@@ -26,9 +26,9 @@
 24,EssilorLuxottica ,EL.F,7,3.5
 25,Iberdrola S.A. ,IBE.MC,7,3.5
 26,Industria De Diseno Textil SA ,ITX.MC,7,3.5
-27,ING Groep N.V. ,INGA.AMS,7,3.5
+27,ING Groep N.V. ,INGA.AS,7,3.5
 28,Intesa Sanpaolo Spa ,ISP.MI,7,3.5
-29,Koninklijke Philips N.V. ,PHIA.AMS,7,3.5
+29,Koninklijke Philips N.V. ,PHIA.AS,7,3.5
 30,L'Oreal ,OR.F,7,3.5
 31,Lvmh Moet Hennessy Vuitton SE ,MC.F,7,3.5
 32,Muenchener Rueckversicherungs-Gesellschaft AG ,MUV2.DE,7,3.5
@@ -44,7 +44,7 @@
 42,Telefonica S.A ,TEF.MC,7,3.5
 43,Total SE ,FP.F,7,3.5
 44,Unicredit Spa ,UCG.MI,7,3.5
-45,Unilever PLC-Sponsored ADR ,UNA.AMS,7,3.5
+45,Unilever PLC-Sponsored ADR ,UNA.AS,7,3.5
 46,Vinci ,DG.F,7,3.5
 47,Vivendi ,VIV.F,7,3.5
 48,Volkswagen AG ,VOW.DE,7,3.5
