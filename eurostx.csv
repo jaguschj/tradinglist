@@ -1,50 +1,50 @@
 ,name,symbol,period,multiplier
-0,Air Liquide S.A ,AI.F,7,3.5
+0,Air Liquide S.A ,AI.PA,7,3.5
 1,Allianz SE ,ALV.DE,7,3.5
 2,Anheuser-Busch In Bev SA/NV ,ABI.BR,7,3.5
 3,ArcelorMittal ,MT.AS,7,3.5
 4,ASML Holding NV ,ASML.AS,7,3.5
 5,Assicurazioni Generali SPA ,G.MI,7,3.5
-6,Axa ,CS.F,7,3.5
+6,Axa ,CS.PA,7,3.5
 7,Banco Bilbao Vizcaya Argentaria. ,BBVA.MC,7,3.5
 8,Banco Santander S.A. ,SAN.MC,7,3.5
 9,Basf SE ,BAS.DE,7,3.5
 10,Bayer AG ,BAYN.DE,7,3.5
 11,Bayerische Motoren Werke AG ,BMW.DE,7,3.5
-12,BNP Paribas ,BNP.F,7,3.5
-13,Carrefour ,CA.F,7,3.5
-14,Compagnie de Saint-Gobain S.A. ,SGO.F,7,3.5
+12,BNP Paribas ,BNP.PA,7,3.5
+13,Carrefour ,CA.PA,7,3.5
+14,Compagnie de Saint-Gobain S.A. ,SGO.PA,7,3.5
 15,CRH Plc ,CRH.L,7,3.5
 16,Daimler AG ,DAI.DE,7,3.5
-17,Danone ,BN.F,7,3.5
+17,Danone ,BN.PA,7,3.5
 18,Deutsche Bank AG ,DBK.DE,7,3.5
 19,Deutsche Telekom AG ,DTE.DE,7,3.5
 20,Enel Spa ,ENEL.MI,7,3.5
-21,Engie ,ENGI.F,7,3.5
+21,Engie ,ENGI.PA,7,3.5
 22,Eni Spa ,ENI.MI,7,3.5
 23,E. On SE ,EOAN.DE,7,3.5
-24,EssilorLuxottica ,EL.F,7,3.5
+24,EssilorLuxottica ,EL.PA,7,3.5
 25,Iberdrola S.A. ,IBE.MC,7,3.5
 26,Industria De Diseno Textil SA ,ITX.MC,7,3.5
 27,ING Groep N.V. ,INGA.AS,7,3.5
 28,Intesa Sanpaolo Spa ,ISP.MI,7,3.5
 29,Koninklijke Philips N.V. ,PHIA.AS,7,3.5
-30,L'Oreal ,OR.F,7,3.5
-31,Lvmh Moet Hennessy Vuitton SE ,MC.F,7,3.5
+30,L'Oreal ,OR.PA,7,3.5
+31,Lvmh Moet Hennessy Vuitton SE ,MC.PA,7,3.5
 32,Muenchener Rueckversicherungs-Gesellschaft AG ,MUV2.DE,7,3.5
 33,Nokia Corp ,NOKIA.HE,7,3.5
-34,Orange. ,ORA.F,7,3.5
+34,Orange. ,ORA.PA,7,3.5
 35,Repsol S.A ,REP.MC,7,3.5
 36,RWE AG - Class A Shares ,RWE.DE,7,3.5
-37,Sanofi ,SAN.F,7,3.5
+37,Sanofi ,SAN.PA,7,3.5
 38,Sap SE ,SAP.DE,7,3.5
-39,Schneider Electric SE ,SU.F,7,3.5
+39,Schneider Electric SE ,SU.PA,7,3.5
 40,Siemens AG ,SIE.DE,7,3.5
-41,Societe Generale S.A. ,GLE.F,7,3.5
+41,Societe Generale S.A. ,GLE.PA,7,3.5
 42,Telefonica S.A ,TEF.MC,7,3.5
-43,Total SE ,FP.F,7,3.5
+43,Total SE ,FP.PA,7,3.5
 44,Unicredit Spa ,UCG.MI,7,3.5
 45,Unilever PLC-Sponsored ADR ,UNA.AS,7,3.5
-46,Vinci ,DG.F,7,3.5
-47,Vivendi ,VIV.F,7,3.5
+46,Vinci ,DG.PA,7,3.5
+47,Vivendi ,VIV.PA,7,3.5
 48,Volkswagen AG ,VOW.DE,7,3.5
