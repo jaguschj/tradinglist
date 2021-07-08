@@ -42,7 +42,7 @@ if __name__ =='__main__':
         description='update history through lists',
     )
 
-    parser.add_argument('--listname', default='DAX.csv', type=str,
+    parser.add_argument('--listname', default='Dax.csv', type=str,
                         help='List with data of shares')
 
     args = parser.parse_args()

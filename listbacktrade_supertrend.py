@@ -68,26 +68,23 @@ def run_st(symb='DTE.DE',period=7,multiplier=3.5,backyears=2):
   cerebro = bt.Cerebro()
   cerebro.addstrategy(SuperTrendStrategy,period=period, multiplier=multiplier)
 
-  data0 = bt.feeds.YahooFinanceData(dataname=symb, fromdate=fromdate,
-                                    todate=today)
+#  data0 = bt.feeds.YahooFinanceData(dataname=symb, fromdate=fromdate,
+#                                    todate=today)
  
-#   data0 = bt.feeds.GenericCSVData(
-#     dataname=os.path.join(datadir,'ticker_%s.csv'%symb),
-
-#     fromdate=fromdate,
-#     todate=today,
-#     nullvalue=0.0,
-
-#     dtformat=('%Y-%m-%d'),
-
-#     datetime=0,
-#     high=2,
-#     low=3,
-#     open=1,
-#     close=4,
-#     volume=6,
-#     openinterest=-1
-# )
+  data0 = bt.feeds.GenericCSVData(
+      dataname=os.path.join(datadir,'ticker_%s.csv'%symb),
+      fromdate=fromdate,
+      todate=today,
+      nullvalue=0.0,
+      dtformat=('%Y-%m-%d'),
+      datetime=0,
+      high=2,
+      low=3,
+      open=1,
+      close=4,
+      volume=6,
+      openinterest=-1
+  )
   
   cerebro.adddata(data0)
   cerebro.broker.setcash(100000.0)
@@ -128,7 +125,8 @@ def run_st(symb='DTE.DE',period=7,multiplier=3.5,backyears=2):
   print ('Return: %.2f Drawdown: %.2f Sharperatio: %.2f'%(rt,dd,sr))
   print ('cash',cash,'total',total)
   spt_ind,buysig,sellsig=back[0].getindicators_lines()
-  price = data0.lines[7].array # adj close?
+  price = data0.lines[3].array # close (hopefully!)
+  #price = data0.lines[7].array # adj close?
   close,spt,buy,sell=(price[-1],spt_ind.array[-1],buysig.array[-1], sellsig.array[-1])
   lastdate=data0.datetime.date()
   print(lastdate)
@@ -265,9 +263,22 @@ def opt_symbol(symbol='DPW.DE',
             SuperTrendStrategy,
             period = period, 
             multiplier = multiplier) 
-    data0 = bt.feeds.YahooFinanceData(dataname=symbol, fromdate=fromdate,
-                                  todate=todate )  
-    
+    #data0 = bt.feeds.YahooFinanceData(dataname=symbol, fromdate=fromdate,
+    #                              todate=todate )  
+    data0 = bt.feeds.GenericCSVData(
+     dataname=os.path.join(datadir,'ticker_%s.csv'%symbol),
+     fromdate=fromdate,
+     todate=todate,
+     nullvalue=0.0,
+     dtformat=('%Y-%m-%d'),
+     datetime=0,
+     high=2,
+     low=3,
+     open=1,
+     close=4,
+     volume=6,
+     openinterest=-1
+ )    
 
     # Add the Data Feed to Cerebro
     cerebro.adddata(data0)
@@ -355,7 +366,7 @@ if __name__=='__main__':
         description='run through lists',
     )
 
-    parser.add_argument('--listname', default='DAX.csv', type=str,
+    parser.add_argument('--listname', default='Dax.csv', type=str,
                         help='List out of ')
     parser.add_argument('--parameterupdate', 
                         #dest='parameterupdate',
